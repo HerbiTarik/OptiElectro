@@ -1,10 +1,14 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
+import RNBootSplash from "react-native-bootsplash"
 
 export default function App() {
+  useEffect(() => {
+      RNBootSplash.hide({fade: true, duration: 500})
+  }, [])
   return (
     <View>
-      <Text>App</Text>
+      <Text>Tarik</Text>
     </View>
   )
 }
