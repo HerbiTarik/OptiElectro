@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import RNBootSplash from "react-native-bootsplash"
+import StartedScreen from './screens/StartedScreen'
 
 
 export default function App() {
@@ -8,10 +9,8 @@ export default function App() {
       RNBootSplash.hide({fade: true, duration: 500})
   }, [])
   return (
-    <View className="bg-primary flex-1">
-      <Text className="text-center  text-red-900">
-          Social Network
-      </Text>
-    </View>
+    <>
+      <StartedScreen />
+    </>
   )
 }
