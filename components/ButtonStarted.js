@@ -1,17 +1,16 @@
 import {Pressable, Text, View} from 'react-native';
 import React from 'react';
-
-const handleStart = () => {
-  console.log('Bouton cliqué');
-};
+import {useNavigation} from '@react-navigation/native';
 
 const ButtonStarted = () => {
+  const navigation = useNavigation();
+
   return (
-    <View className="bg-btnColor px-12 py-4 rounded-full">
-      <Pressable onPress={handleStart}>
+    <Pressable onPress={() => navigation.navigate('LoginScreen')}>
+      <View className="bg-btnColor px-12 py-4 rounded-full">
         <Text className="text-black text-lg font-bold">GET STARTED</Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 };
 
