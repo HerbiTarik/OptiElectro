@@ -7,7 +7,7 @@ const StartedScreen = () => {
   return (
     <View className="bg-primary flex-1 py-12">
       <View className=" pt-8 flex-auto justify-center items-center">
-        <Text className="text-[40px] text-text font-bold">LinkUp</Text>
+        <Text className="text-[40px] text-txt font-bold">LinkUp</Text>
       </View>
       <View className=" justify-center items-center flex-auto">
         <Image
@@ -17,10 +17,10 @@ const StartedScreen = () => {
         />
       </View>
       <View className="flex-auto t-10 justify-center items-center">
-        <Text className="text-text text-base">
+        <Text className="text-txt text-base">
           Welcome to Our Social Network!
         </Text>
-        <Text className="text-text text-base pt-2">
+        <Text className="text-txt text-base pt-2">
           Sign in to discover and connect with friends.
         </Text>
       </View>

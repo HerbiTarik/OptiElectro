@@ -13,8 +13,8 @@ module.exports = {
         primary: '#074C4E',
         secondary: '#292524',
         btnColor: '#fcd34d',
-        text: '#fecaca',
-        // accent: ""
+        txt: '#fffbeb',
+        accent: '#fffbeb',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
