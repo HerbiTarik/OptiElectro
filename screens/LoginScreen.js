@@ -1,6 +1,8 @@
 import {View, Text, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Fontisto';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Btn from '../components/Btn';
 
 const LoginScreen = () => {
   const [Email, setEmail] = useState();
@@ -12,9 +14,13 @@ const LoginScreen = () => {
         <Text className="text-txt text-[40px]">Login</Text>
       </View>
       <View className="flex-auto bg-accent rounded-t-3xl">
-        <View className="p-10">
-          <View className="bg-[#e4e4e7] my-10 rounded-full">
-            <Icon name="email" size={24} color="gray" />
+        <View
+          className="p-10 flex-auto
+        ">
+          <View className="bg-[#e4e4e7] my-5 rounded-full flex-row items-center">
+            <View className="pl-5">
+              <Icon name="email" size={20} color="gray" />
+            </View>
             <TextInput
               className="p-3 flex-auto"
               onChangeText={setEmail}
@@ -25,7 +31,10 @@ const LoginScreen = () => {
               keyboardType="email"
             />
           </View>
-          <View className="bg-[#e4e4e7] my-10 rounded-full">
+          <View className="bg-[#e4e4e7] my-5 rounded-full flex-row items-center">
+            <View className="pl-5">
+              <AntDesign name="lock" size={20} color="gray" />
+            </View>
             <TextInput
               className="p-3 flex-auto"
               onChangeText={setPassword}
@@ -36,6 +45,7 @@ const LoginScreen = () => {
               keyboardAppearance="password"
             />
           </View>
+          <Btn textClassName="my-5 py-3">Login</Btn>
         </View>
       </View>
     </View>

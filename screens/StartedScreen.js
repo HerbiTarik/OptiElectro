@@ -1,9 +1,12 @@
 import {Text, View, Image} from 'react-native';
 import React from 'react';
 import connexionImg from '../assets/connexion.png';
-import ButtonStarted from '../components/ButtonStarted';
+// import ButtonStarted from '../components/ButtonStarted';
+import Btn from '../components/Btn';
+import {useNavigation} from '@react-navigation/native';
 
 const StartedScreen = () => {
+  const navigation = useNavigation();
   return (
     <View className="bg-primary flex-1 py-12">
       <View className=" pt-8 flex-auto justify-center items-center">
@@ -25,7 +28,9 @@ const StartedScreen = () => {
         </Text>
       </View>
       <View className="flex-auto justify-center items-center">
-        <ButtonStarted />
+        <Btn onPressLoginScreen={() => navigation.navigate('LoginScreen')}>
+          GET STARTED
+        </Btn>
       </View>
     </View>
   );
