@@ -1,12 +1,15 @@
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, Pressable} from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Btn from '../components/Btn';
+import {useNavigation} from '@react-navigation/native';
 
 const LoginScreen = () => {
   const [Email, setEmail] = useState();
   const [Password, setPassword] = useState();
+
+  const navigation = useNavigation();
 
   return (
     <View className="flex-1 bg-primary ">
@@ -46,6 +49,17 @@ const LoginScreen = () => {
             />
           </View>
           <Btn textClassName="my-5 py-3">Login</Btn>
+          <View className="pt-3 pr-2">
+            <Pressable>
+              <Text className="self-end text-text2">Forget Password ?</Text>
+            </Pressable>
+          </View>
+          <View className="flex-row self-center py-8">
+            <Text className="text-text2">Don't have an account?</Text>
+            <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
+              <Text className="text-text3"> Sign Up</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </View>

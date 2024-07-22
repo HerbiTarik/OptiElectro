@@ -14,7 +14,10 @@ module.exports = {
         secondary: '#292524',
         btnColor: '#fcd34d',
         txt: '#fffbeb',
+        text2: '#0f172a',
+        text3: '#1d4ed8',
         accent: '#fffbeb',
+        placeholder: '#6b7280',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
