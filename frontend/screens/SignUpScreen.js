@@ -23,6 +23,32 @@ const SignUpScreen = () => {
 
   const navigation = useNavigation();
 
+  // const handleRegister = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:3000/api/users', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         firstName: FirstName,
+  //         lastName: LastName,
+  //         email: Email,
+  //         password: Password,
+  //       }),
+  //     });
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       alert('Registration successful');
+  //       navigation.navigate('HomeScreen');
+  //     } else {
+  //       alert(`Registration failed: ${data.message}`);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('An error occurred. Please try again');
+  //   }
+  // };
   return (
     // <KeyboardAvoidingView>
     //   <ScrollView>
@@ -110,7 +136,12 @@ const SignUpScreen = () => {
               keyboardAppearance="password"
             />
           </View>
-          <Btn textClassName="my-5 py-3">Register</Btn>
+          <Btn
+            textClassName="my-5 py-3"
+            // onClick={handleRegister}
+          >
+            Register
+          </Btn>
           <View className="flex-row self-center py-2">
             <Text className="text-text2">Already have an account?</Text>
             <Pressable onPress={() => navigation.goBack('LoginScreen')}>
