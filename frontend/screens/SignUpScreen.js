@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Fontisto';
@@ -23,32 +24,54 @@ const SignUpScreen = () => {
 
   const navigation = useNavigation();
 
-  // const handleRegister = async () => {
-  //   try {
-  //     const response = await fetch('http://localhost:3000/api/users', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         firstName: FirstName,
-  //         lastName: LastName,
-  //         email: Email,
-  //         password: Password,
-  //       }),
-  //     });
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       alert('Registration successful');
-  //       navigation.navigate('HomeScreen');
-  //     } else {
-  //       alert(`Registration failed: ${data.message}`);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert('An error occurred. Please try again');
-  //   }
-  // };
+  const handleRegister = async () => {
+    const userData = {
+      firstName: FirstName,
+      lastName: LastName,
+      email: Email,
+      password: Password,
+    };
+    //   fetch('http://10.0.2.2:3002/api/user', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(userData),
+    //   })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       if (data.success) {
+    //         Alert.alert('Success', 'User registered successfully!');
+    //       } else {
+    //         Alert.alert('Error', 'Registration failed!');
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.error('Error:', error);
+    //       Alert.alert('Error', 'An error occurred!');
+    //     });
+    // };
+
+    try {
+      const response = await fetch('http://10.0.2.2:3002/api/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert('Registration successful');
+        navigation.navigate('HomeScreen');
+      } else {
+        alert(`Registration failed: ${data.message}`);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred. Please try again');
+    }
+  };
   return (
     // <KeyboardAvoidingView>
     //   <ScrollView>
@@ -136,10 +159,7 @@ const SignUpScreen = () => {
               keyboardAppearance="password"
             />
           </View>
-          <Btn
-            textClassName="my-5 py-3"
-            // onClick={handleRegister}
-          >
+          <Btn textClassName="my-5 py-3" onClick={handleRegister}>
             Register
           </Btn>
           <View className="flex-row self-center py-2">

@@ -4,11 +4,11 @@ const userRoutes = require('./routes/userRoutes');
 require('dotenv').config(); // Charge les variables d'environnement depuis le fichier .env
 
 const app = express();
+const cors = require('cors');
 
-// const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
-// app.use(cors());
+app.use(cors());
 
 //Middleware
 app.use(bodyParser.json()); //Cela permet d'accéder aux données envoyées dans le corps des requêtes via 'req.body'.
