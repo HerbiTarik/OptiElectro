@@ -18,6 +18,7 @@ module.exports = {
         text3: '#1d4ed8',
         accent: '#fffbeb',
         placeholder: '#6b7280',
+        error: '#b91c1c',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

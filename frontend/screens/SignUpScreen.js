@@ -14,6 +14,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Btn from '../components/Btn';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import {validate} from 'validate.js';
+import constraints from '../validationForm/validation';
 
 const SignUpScreen = () => {
   const [FirstName, setFirstName] = useState();
@@ -21,6 +24,7 @@ const SignUpScreen = () => {
   const [Email, setEmail] = useState();
   const [Password, setPassword] = useState();
   const [ConfirmPassword, setConfirmPassword] = useState();
+  const [errors, setErrors] = useState({});
 
   const navigation = useNavigation();
 
@@ -30,48 +34,65 @@ const SignUpScreen = () => {
       lastName: LastName,
       email: Email,
       password: Password,
+      confirmPassword: ConfirmPassword,
     };
-    //   fetch('http://10.0.2.2:3002/api/user', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(userData),
-    //   })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       if (data.success) {
-    //         Alert.alert('Success', 'User registered successfully!');
-    //       } else {
-    //         Alert.alert('Error', 'Registration failed!');
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.error('Error:', error);
-    //       Alert.alert('Error', 'An error occurred!');
-    //     });
-    // };
+
+    const validationErrors = validate(userData, constraints);
+    if (validationErrors) {
+      setErrors(validationErrors);
+      return;
+    }
 
     try {
-      const response = await fetch('http://10.0.2.2:3002/api/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await axios.post(
+        'http://10.0.2.2:3002/api/user',
+        userData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-        body: JSON.stringify(userData),
-      });
-      const data = await response.json();
-      if (response.ok) {
+      );
+
+      const data = response.data;
+      if (response.status === 200 || response.status === 201) {
         alert('Registration successful');
         navigation.navigate('HomeScreen');
       } else {
-        alert(`Registration failed: ${data.message}`);
+        alert(`Registration failed:' ${data.message}`);
       }
     } catch (error) {
       console.error(error);
-      alert('An error occurred. Please try again');
+      if (error.response) {
+        alert(`Registration failed: ${error.response.data.message}`);
+      } else if (error.request) {
+        alert('No response received from server');
+      } else {
+        alert('An error occurred. Please try again');
+      }
     }
   };
+
+  //   try {
+  //     const response = await fetch('http://10.0.2.2:3002/api/user', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(userData),
+  //     });
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       alert('Registration successful');
+  //       navigation.navigate('HomeScreen');
+  //     } else {
+  //       alert(`Registration failed: ${data.message}`);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('An error occurred. Please try again');
+  //   }
+  // };
   return (
     // <KeyboardAvoidingView>
     //   <ScrollView>
@@ -99,6 +120,9 @@ const SignUpScreen = () => {
               placeholderTextColor={'#6b7280'}
             />
           </View>
+          {errors.firstName && (
+            <Text className="text-error">{errors.firstName[0]}</Text>
+          )}
           <View className="bg-[#e4e4e7] my-5 rounded-full flex-row items-center">
             <View className="pl-5">
               <Ionicons
@@ -115,6 +139,9 @@ const SignUpScreen = () => {
               placeholderTextColor={'#6b7280'}
             />
           </View>
+          {errors.lastName && (
+            <Text className="text-error">{errors.lastName[0]}</Text>
+          )}
           <View className="bg-[#e4e4e7] my-5 rounded-full flex-row items-center">
             <View className="pl-5">
               <Icon name="email" size={20} className="text-placeholder" />
@@ -129,6 +156,9 @@ const SignUpScreen = () => {
               keyboardType="email"
             />
           </View>
+          {errors.email && (
+            <Text className="text-error">{errors.email[0]}</Text>
+          )}
           <View className="bg-[#e4e4e7] my-5 rounded-full flex-row items-center">
             <View className="pl-5">
               <AntDesign name="lock" size={20} className="text-placeholder" />
@@ -144,6 +174,9 @@ const SignUpScreen = () => {
               keyboardAppearance="password"
             />
           </View>
+          {errors.password && (
+            <Text className="text-error">{errors.password[0]}</Text>
+          )}
           <View className="bg-[#e4e4e7] my-5 rounded-full flex-row items-center">
             <View className="pl-5">
               <AntDesign name="lock" size={20} className="text-placeholder" />
@@ -159,6 +192,10 @@ const SignUpScreen = () => {
               keyboardAppearance="password"
             />
           </View>
+          {errors.confirmPassword && (
+            <Text className="text-error">{errors.confirmPassword[0]}</Text>
+          )}
+
           <Btn textClassName="my-5 py-3" onClick={handleRegister}>
             Register
           </Btn>
