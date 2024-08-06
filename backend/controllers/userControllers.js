@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 const userController = {
   getAllUsers: async (req, res) => {
@@ -26,7 +27,15 @@ const userController = {
   createUser: async (req, res) => {
     try {
       const {firstName, lastName, email, password} = req.body; // req.body --> Utilisé pour accéder aux données envoyées dans le corps de la requête, généralement pour les requêtes POST ou PUT où des données sont envoyées pour être traitées par le serveur.
-      const newUser = await User.create({firstName, lastName, email, password});
+
+      const hashedPassword = await bcrypt.hash(password, 10); //10 -> "salt rounds" : nombre de tours d'algorithme de hachage (Plus le nombre de tours est élevé, plus le processus de hachage sera lent et sécurisé.)
+
+      const newUser = await User.create({
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+      });
       res.status(201).json(newUser);
     } catch (err) {
       console.error(err);
