@@ -1,13 +1,22 @@
 import {View, Text, Pressable} from 'react-native';
 import React from 'react';
 
-const Btn = ({children, textClassName, onPressLoginScreen, onClick}) => {
+const Btn = ({
+  children,
+  textClassName,
+  onPressLoginScreen,
+  onClick,
+  onLogin,
+}) => {
   const handlePress = () => {
     if (onPressLoginScreen) {
       onPressLoginScreen();
     }
     if (onClick) {
       onClick();
+    }
+    if (onLogin) {
+      onLogin();
     }
   };
   return (

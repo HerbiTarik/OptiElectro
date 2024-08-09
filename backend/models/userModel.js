@@ -9,6 +9,12 @@ const User = {
     const res = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
     return res.rows[0];
   },
+  findByEmail: async email => {
+    const res = await pool.query('SELECT * FROM users WHERE email = $1', [
+      email,
+    ]);
+    return res.rows[0];
+  },
   create: async user => {
     const {firstName, lastName, email, password} = user;
     const res = await pool.query(

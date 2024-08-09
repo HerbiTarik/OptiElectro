@@ -49,7 +49,7 @@ const SignUpScreen = () => {
 
     try {
       const response = await axios.post(
-        'http://10.0.2.2:3002/api/user',
+        'http://10.0.2.2:3002/api/users/registration',
         userData,
         {
           headers: {

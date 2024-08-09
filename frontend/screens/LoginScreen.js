@@ -1,4 +1,4 @@
-import {View, Text, TextInput, Pressable} from 'react-native';
+import {View, Text, TextInput, Pressable, Alert} from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,12 +8,74 @@ import {
   KeyboardProvider,
   KeyboardAwareScrollView,
 } from 'react-native-keyboard-controller';
+import axios from 'axios';
 
 const LoginScreen = () => {
-  const [Email, setEmail] = useState();
-  const [Password, setPassword] = useState();
-
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    console.log(email, password);
+
+    const loginData = {
+      email: email,
+      password: password,
+    };
+    // try {
+    axios
+      .post('http://10.0.2.2:3002/api/users/login', loginData)
+      .then(res => console.log(res.data));
+
+    // console.log(response);
+    // const {token} = response.data;
+
+    // if (response.status === 200 || response.status === 201) {
+    //   await AsyncStorage.setItem('token', token);
+    //   Alert.alert('Login successful', 'You are now logged in');
+    //   navigation.navigate('HomeScreen');
+    // }
+    // } catch (error) {
+    //   if (error.response) {
+    //     console.log('Error response:', error.response.data);
+    //     Alert.alert(
+    //       'Login failed',
+    //       error.response.data.message || 'Invalid email or password',
+    //     );
+    //   } else if (error.request) {
+    //     console.log('Error request:', error.request);
+    //     Alert.alert('Login failed', 'No response from server');
+    //   } else {
+    //     console.log('Error message:', error.message);
+    //     Alert.alert('Login failed', 'An error occurred');
+    //   }
+    // }
+  };
+
+  //   try {
+  //     const response = await fetch('http://10.0.2.2:3002/api/users/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(loginData),
+  //     });
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log('Response data:', data); // Affiche la réponse
+  //       const {token} = data;
+  //       if (token) {
+  //         alert('login successful');
+  //         navigation.navigate('HomeScreen');
+  //       } else {
+  //         alert(`Registration failed: ${data.message}`);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('An error occurred. Please try again');
+  //   }
+  // };
 
   return (
     <KeyboardProvider>
@@ -33,7 +95,7 @@ const LoginScreen = () => {
                 <TextInput
                   className="p-3 flex-auto"
                   onChangeText={setEmail}
-                  value={Email}
+                  value={email}
                   placeholder="Enter your email address"
                   placeholderTextColor={'gray'}
                   autoComplete="email"
@@ -47,14 +109,16 @@ const LoginScreen = () => {
                 <TextInput
                   className="p-3 flex-auto"
                   onChangeText={setPassword}
-                  value={Password}
+                  value={password}
                   placeholder="Enter your password"
                   autoComplete="password"
                   secureTextEntry
                   keyboardAppearance="password"
                 />
               </View>
-              <Btn textClassName="my-5 py-3">Login</Btn>
+              <Btn textClassName="my-5 py-3" onLogin={handleLogin}>
+                Login
+              </Btn>
               <View className="pt-3 pr-2">
                 <Pressable>
                   <Text className="self-end text-text2">Forget Password ?</Text>
