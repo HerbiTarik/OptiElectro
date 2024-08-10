@@ -64,7 +64,7 @@ const userController = {
       }
 
       const token = jwt.sign({email: user.email}, process.env.SECRETKEY, {
-        expiresIn: '2s',
+        expiresIn: '10s',
       });
       res.status(200).json({token});
     } catch (error) {

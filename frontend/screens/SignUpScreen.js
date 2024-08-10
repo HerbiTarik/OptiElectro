@@ -61,7 +61,7 @@ const SignUpScreen = () => {
       const data = response.data;
       if (response.status === 200 || response.status === 201) {
         alert('Registration successful');
-        navigation.navigate('HomeScreen');
+        navigation.navigate('LoginScreen');
       } else {
         alert(`Registration failed:' ${data.message}`);
       }
@@ -99,7 +99,9 @@ const SignUpScreen = () => {
   // };
   return (
     <KeyboardProvider>
-      <KeyboardAwareScrollView contentContainerStyle={{flexGrow: 1}}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{flexGrow: 1}}
+        keyboardShouldPersistTaps="handled">
         <View className="flex-1 bg-primary ">
           <View className="p-10 justify-center items-center">
             <Text className="text-txt text-[40px]">Sign Up</Text>

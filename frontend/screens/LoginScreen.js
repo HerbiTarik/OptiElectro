@@ -22,64 +22,38 @@ const LoginScreen = () => {
       email: email,
       password: password,
     };
-    // try {
-    axios
-      .post('http://10.0.2.2:3002/api/users/login', loginData)
-      .then(res => console.log(res.data));
+    try {
+      const response = await axios.post(
+        'http://10.0.2.2:3002/api/users/login',
+        loginData,
+      );
 
-    // console.log(response);
-    // const {token} = response.data;
+      const {token} = response.data;
 
-    // if (response.status === 200 || response.status === 201) {
-    //   await AsyncStorage.setItem('token', token);
-    //   Alert.alert('Login successful', 'You are now logged in');
-    //   navigation.navigate('HomeScreen');
-    // }
-    // } catch (error) {
-    //   if (error.response) {
-    //     console.log('Error response:', error.response.data);
-    //     Alert.alert(
-    //       'Login failed',
-    //       error.response.data.message || 'Invalid email or password',
-    //     );
-    //   } else if (error.request) {
-    //     console.log('Error request:', error.request);
-    //     Alert.alert('Login failed', 'No response from server');
-    //   } else {
-    //     console.log('Error message:', error.message);
-    //     Alert.alert('Login failed', 'An error occurred');
-    //   }
-    // }
+      if (response.status === 200 || response.status === 201) {
+        // await AsyncStorage.setItem('token', token);
+        Alert.alert('Login successful', 'You are now logged in');
+        navigation.replace('HomeScreen');
+
+        //expiration du token après 10s
+        setTimeout(() => {
+          Alert.alert(
+            'Session Expired',
+            'Your session has expired. Please login again.',
+          );
+          navigation.navigate('LoginScreen');
+        }, 10000);
+      }
+    } catch (error) {
+      Alert.alert('Login failed', 'Invalid email or password');
+    }
   };
-
-  //   try {
-  //     const response = await fetch('http://10.0.2.2:3002/api/users/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(loginData),
-  //     });
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log('Response data:', data); // Affiche la réponse
-  //       const {token} = data;
-  //       if (token) {
-  //         alert('login successful');
-  //         navigation.navigate('HomeScreen');
-  //       } else {
-  //         alert(`Registration failed: ${data.message}`);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert('An error occurred. Please try again');
-  //   }
-  // };
 
   return (
     <KeyboardProvider>
-      <KeyboardAwareScrollView contentContainerStyle={{flexGrow: 1}}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{flexGrow: 1}}
+        keyboardShouldPersistTaps="handled">
         <View className="flex-1 bg-primary ">
           <View className="p-10 justify-center items-center">
             <Text className="text-txt text-[40px]">Login</Text>
