@@ -16,8 +16,6 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    console.log(email, password);
-
     const loginData = {
       email: email,
       password: password,
@@ -36,13 +34,13 @@ const LoginScreen = () => {
         navigation.replace('HomeScreen');
 
         //expiration du token après 10s
-        setTimeout(() => {
-          Alert.alert(
-            'Session Expired',
-            'Your session has expired. Please login again.',
-          );
-          navigation.navigate('LoginScreen');
-        }, 10000);
+        // setTimeout(() => {
+        //   Alert.alert(
+        //     'Session Expired',
+        //     'Your session has expired. Please login again.',
+        //   );
+        //   navigation.navigate('LoginScreen');
+        // }, 10000);
       }
     } catch (error) {
       Alert.alert('Login failed', 'Invalid email or password');
