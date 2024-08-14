@@ -39,11 +39,12 @@ const HomeScreen = () => {
         tabBarIconStyle: {
           fontSize: 20,
         },
-      })}>
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Accuil" component={Accuil} />
+      })}
+      initialRouteName="Profile">
       <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="AddPosts" component={AddPosts} />
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Accuil" component={Accuil} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );

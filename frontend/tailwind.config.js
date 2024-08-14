@@ -19,6 +19,7 @@ module.exports = {
         accent: '#fffbeb',
         placeholder: '#6b7280',
         error: '#b91c1c',
+        btnSecondary: '#f8fafc',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
