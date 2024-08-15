@@ -72,6 +72,24 @@ const userController = {
       res.status(500).json({error: error.message});
     }
   },
+  AddImage: async (req, res) => {
+    const {image, id} = req.body;
+    console.log(req.body);
+    if (!image || !id) {
+      return res.status(400).json({message: 'image et id sont requis.'});
+    }
+    try {
+      const imageBuffer = Buffer.from(image, 'base64'); //pour encoder l'image en base64
+      const updatedUserId = await User.uploadImg(imageBuffer, id);
+      res.status(201).json({
+        message: 'Image uploadée avec succès',
+        updatedUserId,
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'insertion de l'image:", error);
+      res.status(500).json({message: 'Erreur interne du serveur'});
+    }
+  },
 };
 
 module.exports = userController;

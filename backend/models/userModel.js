@@ -23,6 +23,14 @@ const User = {
     );
     return res.rows[0];
   },
+  uploadImg: async (image, id) => {
+    const values = [image, id];
+    const res = await pool.query(
+      'UPDATE users SET image = $1 WHERE id = $2 RETURNING id;',
+      values,
+    );
+    return res.rows[0];
+  },
 };
 
 module.exports = User;
