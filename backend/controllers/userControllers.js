@@ -27,6 +27,21 @@ const userController = {
     }
   },
 
+  getUserByEmail: async (req, res) => {
+    try {
+      const email = req.body;
+      const user = await User.findByEmail(email);
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({message: "email n'existe pas"});
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({error: err.message});
+    }
+  },
+
   //User registration
   registration: async (req, res) => {
     try {

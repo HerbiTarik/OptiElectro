@@ -9,6 +9,7 @@ import {
   KeyboardAwareScrollView,
 } from 'react-native-keyboard-controller';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ const LoginScreen = () => {
       const {token} = response.data;
 
       if (response.status === 200 || response.status === 201) {
-        // await AsyncStorage.setItem('token', token);
+        await AsyncStorage.setItem('token', token);
         Alert.alert('Login successful', 'You are now logged in');
         navigation.replace('HomeScreen');
 
@@ -39,6 +40,7 @@ const LoginScreen = () => {
         //     'Session Expired',
         //     'Your session has expired. Please login again.',
         //   );
+        // await AsyncStorage.removeItem('token');
         //   navigation.navigate('LoginScreen');
         // }, 10000);
       }

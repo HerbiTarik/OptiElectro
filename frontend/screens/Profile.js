@@ -8,16 +8,35 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {jwtDecode} from 'jwt-decode';
 
 const Profile = () => {
   const [imageUri, setImageUri] = useState(null);
+
+  const extractUserData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token !== null) {
+        const decodeToken = jwtDecode(token);
+        const {email} = decodeToken;
+        console.log('email: ', email);
+
+        return {email};
+      } else {
+        console.log('Token not found');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error decoding token:', error);
+    }
+  };
 
   // const convertImageToBase64 = async uri => {
   //   const base64Image = await RNFS.readFile(uri, 'base64');
   //   return base64Image;
   // };
 
-  console.log(imageUri);
   const pickImage = () => {
     let option = {
       mediaType: 'photo',
@@ -33,6 +52,7 @@ const Profile = () => {
       }
     });
   };
+
   // const takePhoto = () => {
   //   let options = {
   //     mediaType: 'photo',
@@ -67,7 +87,7 @@ const Profile = () => {
           )}
           <Pressable
             className="absolut bottom-9 left-11 bg-white p-1 rounded-full"
-            onPress={pickImage}>
+            onPress={extractUserData}>
             <Ionicons name="add-circle" size={28} color={'#020617'} />
           </Pressable>
         </View>
