@@ -1,6 +1,6 @@
 import {Text, View, Image} from 'react-native';
 import React from 'react';
-import connexionImg from '../assets/connexion.png';
+import connexionImg from '../assets/pngegg(4).png';
 // import ButtonStarted from '../components/ButtonStarted';
 import Btn from '../components/Btn';
 import {useNavigation} from '@react-navigation/native';
@@ -8,10 +8,11 @@ import {useNavigation} from '@react-navigation/native';
 const StartedScreen = () => {
   const navigation = useNavigation();
   return (
-    <View className="bg-primary flex-1 py-12">
+    <View className="bg-accent flex-1 pb-12">
       <View className=" pt-8 flex-auto justify-center items-center">
-        <Text className="text-[40px] text-txt font-bold">LinkUp</Text>
+        <Text className="text-[40px] text-text2 font-bold">OptiElectro</Text>
       </View>
+
       <View className=" justify-center items-center flex-auto">
         <Image
           source={connexionImg}
@@ -19,14 +20,15 @@ const StartedScreen = () => {
           resizeMode="contain"
         />
       </View>
-      <View className="flex-auto t-10 justify-center items-center">
-        <Text className="text-txt text-base">
-          Welcome to Our Social Network!
+      <View className="flex-auto pt-8 justify-center items-center">
+        <Text className="text-text2 text-base text-center">
+          Electrical & Fiber Optic Installation at Your Service.
         </Text>
-        <Text className="text-txt text-base pt-2">
-          Sign in to discover and connect with friends.
+        <Text className="text-text2 text-base pt-4">
+          Customized, Fast, and Reliable Solutions.
         </Text>
       </View>
+
       <View className="flex-auto justify-center items-center">
         <Btn onPressLoginScreen={() => navigation.navigate('LoginScreen')}>
           GET STARTED

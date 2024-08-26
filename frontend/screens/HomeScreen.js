@@ -2,8 +2,8 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Profile from './Profile';
 import Accuil from './Accuil';
-import Search from './Search';
-import AddPosts from './AddPosts';
+import Booking from './Booking';
+import Message from './Message';
 import Settings from './Settings';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -22,10 +22,12 @@ const HomeScreen = () => {
             iconName = focused ? 'settings' : 'settings-outline';
           } else if (route.name === 'Accuil') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Search') {
-            iconName = focused ? 'search' : 'search-outline';
-          } else if (route.name === 'AddPosts') {
-            iconName = focused ? 'duplicate' : 'duplicate-outline';
+          } else if (route.name === 'Booking') {
+            iconName = focused ? 'calendar' : 'calendar-outline';
+          } else if (route.name === 'Message') {
+            iconName = focused
+              ? 'chatbubble-ellipses-sharp'
+              : 'chatbubble-ellipses-outline';
           }
           return <Ionicons name={iconName} size={28} color={color} />;
         },
@@ -41,10 +43,10 @@ const HomeScreen = () => {
         },
       })}
       initialRouteName="Profile">
-      <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="AddPosts" component={AddPosts} />
-      <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Accuil" component={Accuil} />
+      <Tab.Screen name="Booking" component={Booking} />
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Message" component={Message} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );

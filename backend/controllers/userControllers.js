@@ -29,7 +29,7 @@ const userController = {
 
   getUserByEmail: async (req, res) => {
     try {
-      const email = req.body;
+      const email = req.params.email;
       const user = await User.findByEmail(email);
       if (user) {
         res.status(200).json(user);
@@ -66,9 +66,7 @@ const userController = {
   login: async (req, res) => {
     try {
       const {email, password} = req.body;
-      // console.log(req.body.email);
       const user = await User.findByEmail(email);
-      console.log(user);
       if (!user) {
         return res.status(404).json({message: 'User not found'});
       }
@@ -89,7 +87,6 @@ const userController = {
   },
   AddImage: async (req, res) => {
     const {image, id} = req.body;
-    console.log(req.body);
     if (!image || !id) {
       return res.status(400).json({message: 'image et id sont requis.'});
     }
