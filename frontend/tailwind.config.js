@@ -20,6 +20,7 @@ module.exports = {
         placeholder: '#6b7280',
         error: '#b91c1c',
         btnSecondary: '#f8fafc',
+        textInput: '#e4e4e7',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
