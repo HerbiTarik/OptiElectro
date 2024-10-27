@@ -23,12 +23,12 @@ const LoginScreen = () => {
     };
     try {
       const response = await axios.post(
-        'http://10.0.2.2:3002/api/users/login',
+        'http://10.0.2.2:3000/api/users/login',
         loginData,
       );
 
       const {token} = response.data;
-
+      console.log(token);
       if (response.status === 200 || response.status === 201) {
         await AsyncStorage.setItem('token', token);
         Alert.alert('Login successful', 'You are now logged in');

@@ -31,6 +31,21 @@ const User = {
     );
     return res.rows[0];
   },
+  uploadProfile: async (
+    id,
+    first_name,
+    last_name,
+    email,
+    number,
+    location,
+    countrynumber,
+  ) => {
+    const res = await pool.query(
+      'UPDATE users SET first_name = $1, last_name = $2, email = $3, number = $4, location = $5, countrynumber = $6 WHERE id = $7 RETURNING *',
+      [first_name, last_name, email, number, location, countrynumber, id],
+    );
+    return res.rows[0];
+  },
 };
 
 module.exports = User;

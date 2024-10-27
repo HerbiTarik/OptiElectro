@@ -102,6 +102,28 @@ const userController = {
       res.status(500).json({message: 'Erreur interne du serveur'});
     }
   },
+  UpdateDataProfile: async (req, res) => {
+    const {id, first_name, last_name, email, number, location, countrynumber} =
+      req.body;
+    const updatedData = await User.uploadProfile(
+      id,
+      first_name,
+      last_name,
+      email,
+      number,
+      location,
+      countrynumber,
+    );
+    try {
+      res.status(201).json({
+        message: 'details successfully updated',
+        updatedData,
+      });
+    } catch (error) {
+      console.error('Error when updating details: ', error);
+      res.status(500).json({message: 'Erreur interne du serveur'});
+    }
+  },
 };
 
 module.exports = userController;
