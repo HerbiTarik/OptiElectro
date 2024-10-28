@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import RNBootSplash from 'react-native-bootsplash';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import {NavigationContainer} from '@react-navigation/native';
 import StackNavigator from './components/StackNavigator';
@@ -10,8 +11,10 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }

@@ -274,7 +274,7 @@ const Profile = () => {
                   className="text-placeholder"
                 />
               </View>
-              <View className="w-12 h-auto">
+              <View className="w-10 h-auto ">
                 <Picker
                   selectedValue={selectedValue}
                   mode="dropdown"
@@ -323,7 +323,7 @@ const Profile = () => {
               />
             </View>
 
-            <Btn textClassName="my-5 py-3" onPutProfile={putProfile}>
+            <Btn textClassName="mt-3 mb-12 py-3" onPutProfile={putProfile}>
               Save
             </Btn>
           </View>
