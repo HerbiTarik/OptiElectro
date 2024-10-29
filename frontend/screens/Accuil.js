@@ -73,18 +73,18 @@ const Accuil = () => {
             parallaxScrollingOffset: 200,
           }}
           width={width}
-          height={width}
+          height={350}
           data={data}
           // autoPlay
           // autoPlayInterval={8000}
           scrollAnimationDuration={3000}
           renderItem={({item}) => (
-            <View className="bg-slate-600 items-center justify-center flex-1">
+            <View className="items-center justify-center flex-1">
               <Text className="text-lg p-3">{item.title}</Text>
               <Image
                 source={item.img}
                 style={{
-                  width: width,
+                  width: width * 0.9,
                   height: 420,
                   borderRadius: 15,
                 }}
