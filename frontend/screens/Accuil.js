@@ -1,4 +1,11 @@
-import {View, Text, TextInput, Dimensions, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Dimensions,
+  Image,
+  StyleSheet,
+} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import fibre_optique from '../assets/fibre-optique.jpg';
@@ -8,10 +15,26 @@ import mise_aux_normes from '../assets/mise-aux-normes.jpg';
 import Carousel from 'react-native-reanimated-carousel';
 
 const data = [
-  {title: 'Item 1', img: {fibre_optique}},
-  {title: 'Item 2', img: {installation_electrique}},
-  {title: 'Item 3', img: {maintenance}},
-  {title: 'Item 4', img: {mise_aux_normes}},
+  {
+    title: 'Fibre optique',
+    text: 'Connectez-vous à l’avenir avec la fibre haute performance.',
+    img: fibre_optique,
+  },
+  {
+    title: 'Installation électrique',
+    text: 'Pour vos bureaux, maisons et locaux commerciaux.',
+    img: installation_electrique,
+  },
+  {
+    title: 'Maintenance et dépannage',
+    text: 'Service rapide et efficace.',
+    img: maintenance,
+  },
+  {
+    title: 'Mise aux normes',
+    text: 'Modernisation et sécurité de vos installations.',
+    img: mise_aux_normes,
+  },
 ];
 
 const Accuil = () => {
@@ -28,7 +51,7 @@ const Accuil = () => {
       </View>
       <View className="relative bg-textInput my-10 mx-5 rounded-full flex-row ">
         <TextInput
-          className="flex-auto py-3 pl-5 placeholder: text-placeholder text-base text-text2"
+          className="flex-auto py-3 pl-5 placeholder:text-placeholder text-base text-text2"
           placeholder="Find works to schedule..."
         />
         <View className="bg-btnColor items-center  p-2.5 m-1 justify-center rounded-full mr-2">
@@ -36,32 +59,36 @@ const Accuil = () => {
         </View>
       </View>
 
-      <View className="items-center justify-center">
+      <View className="flex-auto bg-slate-200">
+        <View>
+          <Text className="text-lg">Services principaux</Text>
+        </View>
         <Carousel
-          mode="tinder"
+          className="flex-auto bg-red-500"
+          loop
+          mode="parallax"
           modeConfig={{
-            stackInterval: 30, // Ajustez l'espacement des cartes
-            scaleInterval: 0.1, // Ajustez l'échelle des cartes
-            rotateDegree: 10, // Ajustez la rotation des cartes
+            parallaxScrollingScale: 0.7,
+            parallaxAdjacentItemScale: 0.6,
+            parallaxScrollingOffset: 200,
           }}
-          width={width * 0.8}
-          height={width / 2}
+          width={width}
+          height={width}
           data={data}
-          scrollAnimationDuration={1000}
-          // modeConfig={{
-          //   stackInterval: 30, // Distance entre les cartes
-          //   scaleInterval: 0.1, // Échelle des cartes dans la pile
-          //   rotateDegree: 10, // Degré de rotation de chaque carte
-          // }}
+          // autoPlay
+          // autoPlayInterval={8000}
+          scrollAnimationDuration={3000}
           renderItem={({item}) => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#aaa',
-              }}>
-              <Text style={{fontSize: 24}}>{item.title}</Text>
+            <View className="bg-slate-600 items-center justify-center flex-1">
+              <Text className="text-lg p-3">{item.title}</Text>
+              <Image
+                source={item.img}
+                style={{
+                  width: width,
+                  height: 420,
+                  borderRadius: 15,
+                }}
+              />
             </View>
           )}
         />
