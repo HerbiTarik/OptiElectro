@@ -90,7 +90,7 @@ const LoginScreen = () => {
                   keyboardAppearance="password"
                 />
               </View>
-              <Btn textClassName="my-5 py-3" onLogin={handleLogin}>
+              <Btn textClassName="my-5 py-3 bg-[#facc15]" onLogin={handleLogin}>
                 Login
               </Btn>
               <View className="pt-3 pr-2">

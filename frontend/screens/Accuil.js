@@ -5,6 +5,7 @@ import {
   Dimensions,
   Image,
   StyleSheet,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -59,12 +60,14 @@ const Accuil = () => {
         </View>
       </View>
 
-      <View className="flex-auto bg-slate-200">
-        <View>
-          <Text className="text-lg">Services principaux</Text>
+      <View className="flex-auto ">
+        <View className="justify-center items-center">
+          <Text className="text-lg font-bold text-txt">
+            Services principaux
+          </Text>
         </View>
         <Carousel
-          className="flex-auto bg-red-500"
+          className="flex-auto"
           loop
           mode="parallax"
           modeConfig={{
@@ -81,14 +84,47 @@ const Accuil = () => {
           renderItem={({item}) => (
             <View className="items-center justify-center flex-1">
               <Text className="text-lg p-3">{item.title}</Text>
-              <Image
+              {/* <Image
                 source={item.img}
                 style={{
                   width: width * 0.9,
                   height: 420,
                   borderRadius: 15,
                 }}
-              />
+              /> */}
+              <View
+                style={{
+                  shadowColor: '#000',
+                  shadowOffset: {width: 0, height: 4},
+                  shadowOpacity: 0.8,
+                  shadowRadius: 5,
+                  elevation: 10,
+                  borderRadius: 15,
+                }}>
+                <ImageBackground
+                  source={item.img}
+                  resizeMode="cover"
+                  style={{
+                    width: width * 0.9,
+                    height: 420,
+                    borderRadius: 15,
+                    justifyContent: 'flex-end',
+                    alignItems: 'flex-start',
+                  }}
+                  imageStyle={{borderRadius: 15}}>
+                  <View
+                    style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                      borderTopRightRadius: 15,
+                      borderBottomRightRadius: 15,
+                      marginBottom: 30,
+                    }}>
+                    <Text className=" text-txt text-[26px] p-2">
+                      {item.text}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </View>
             </View>
           )}
         />
