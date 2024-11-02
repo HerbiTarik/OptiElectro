@@ -15,6 +15,13 @@
 		7699B88040F8A987B510C191 /* libPods-LinkUp-LinkUpTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-LinkUp-LinkUpTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A59B76B7CC3B4AD5B2299FE5 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC128879F564B5185E957FE /* BootSplash.storyboard */; };
+		CC7F0EA3481648A29277C2F9 /* Merienda-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CEA8170D2664D0C9BD0F8C8 /* Merienda-Black.ttf */; };
+		23A25FBE17B5436EA5F2CF49 /* Merienda-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A5CAEDD54BD4944A5E586B9 /* Merienda-Bold.ttf */; };
+		7CDA89B6A5CD428ABCC72BC2 /* Merienda-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08B853F44A664B66AD5A50CB /* Merienda-ExtraBold.ttf */; };
+		7B64CC729993454E97F92A9A /* Merienda-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 359BE2B241A344D3B2E8F846 /* Merienda-Light.ttf */; };
+		178E174BEF814834ACE532A1 /* Merienda-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08147086612F46899E10F87C /* Merienda-Medium.ttf */; };
+		D9ADE4D8074842198FEEEA5C /* Merienda-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E244FBD41EFE458A98A36905 /* Merienda-Regular.ttf */; };
+		10D2F3D5FAA844168C377B8D /* Merienda-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 893951B0F6F24AA8854180B8 /* Merienda-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +54,13 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-LinkUp-LinkUpTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkUp-LinkUpTests.release.xcconfig"; path = "Target Support Files/Pods-LinkUp-LinkUpTests/Pods-LinkUp-LinkUpTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		AAC128879F564B5185E957FE /* BootSplash.storyboard */ = {isa = PBXFileReference; name = "BootSplash.storyboard"; path = "LinkUp/BootSplash.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0CEA8170D2664D0C9BD0F8C8 /* Merienda-Black.ttf */ = {isa = PBXFileReference; name = "Merienda-Black.ttf"; path = "../assets/fonts/Merienda-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9A5CAEDD54BD4944A5E586B9 /* Merienda-Bold.ttf */ = {isa = PBXFileReference; name = "Merienda-Bold.ttf"; path = "../assets/fonts/Merienda-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		08B853F44A664B66AD5A50CB /* Merienda-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Merienda-ExtraBold.ttf"; path = "../assets/fonts/Merienda-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		359BE2B241A344D3B2E8F846 /* Merienda-Light.ttf */ = {isa = PBXFileReference; name = "Merienda-Light.ttf"; path = "../assets/fonts/Merienda-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		08147086612F46899E10F87C /* Merienda-Medium.ttf */ = {isa = PBXFileReference; name = "Merienda-Medium.ttf"; path = "../assets/fonts/Merienda-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E244FBD41EFE458A98A36905 /* Merienda-Regular.ttf */ = {isa = PBXFileReference; name = "Merienda-Regular.ttf"; path = "../assets/fonts/Merienda-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		893951B0F6F24AA8854180B8 /* Merienda-SemiBold.ttf */ = {isa = PBXFileReference; name = "Merienda-SemiBold.ttf"; path = "../assets/fonts/Merienda-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +141,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				2B31BF56FB2B47E28C9103FE /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -152,6 +167,21 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		2B31BF56FB2B47E28C9103FE /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0CEA8170D2664D0C9BD0F8C8 /* Merienda-Black.ttf */,
+				9A5CAEDD54BD4944A5E586B9 /* Merienda-Bold.ttf */,
+				08B853F44A664B66AD5A50CB /* Merienda-ExtraBold.ttf */,
+				359BE2B241A344D3B2E8F846 /* Merienda-Light.ttf */,
+				08147086612F46899E10F87C /* Merienda-Medium.ttf */,
+				E244FBD41EFE458A98A36905 /* Merienda-Regular.ttf */,
+				893951B0F6F24AA8854180B8 /* Merienda-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -249,6 +279,13 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				A59B76B7CC3B4AD5B2299FE5 /* BootSplash.storyboard in Resources */,
+				CC7F0EA3481648A29277C2F9 /* Merienda-Black.ttf in Resources */,
+				23A25FBE17B5436EA5F2CF49 /* Merienda-Bold.ttf in Resources */,
+				7CDA89B6A5CD428ABCC72BC2 /* Merienda-ExtraBold.ttf in Resources */,
+				7B64CC729993454E97F92A9A /* Merienda-Light.ttf in Resources */,
+				178E174BEF814834ACE532A1 /* Merienda-Medium.ttf in Resources */,
+				D9ADE4D8074842198FEEEA5C /* Merienda-Regular.ttf in Resources */,
+				10D2F3D5FAA844168C377B8D /* Merienda-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

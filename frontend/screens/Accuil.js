@@ -14,6 +14,7 @@ import installation_electrique from '../assets/installation-electrique.jpg';
 import maintenance from '../assets/maintenance.jpg';
 import mise_aux_normes from '../assets/mise-aux-normes.jpg';
 import Carousel from 'react-native-reanimated-carousel';
+import Svg, {Circle} from 'react-native-svg';
 
 const data = [
   {
@@ -23,7 +24,7 @@ const data = [
   },
   {
     title: 'Installation électrique',
-    text: 'Pour vos bureaux, maisons et locaux commerciaux.',
+    text: 'Pourquoi passer à la fibre optique ? Quels avantages pour vous ?',
     img: installation_electrique,
   },
   {
@@ -41,13 +42,26 @@ const data = [
 const Accuil = () => {
   // const carouselRef = useRef(null);
   const {width} = Dimensions.get('window');
+  const {height} = Dimensions.get('window');
 
   return (
-    <View className="bg-primary flex-1">
-      <View className="items-center justify-center pt-20">
+    <View className="flex-1">
+      <View className="absolute">
+        <Svg height={height} width={width} viewBox="0 0 100 100">
+          <Circle cx="75" cy="-35" r="100" fill="#f97316" />
+        </Svg>
+      </View>
+      <View className="items-center justify-center pt-8 pb-10">
+        <Text
+          className="text-txt text-lg "
+          style={{fontFamily: 'Merienda-Bold'}}>
+          OptiElectro
+        </Text>
+      </View>
+      <View className="items-center justify-center">
         <Text className="text-txt flex-auto text-lg tracking-wide leading-10 text-center font-bold">
-          Electrical and fiber optic installation,{'\n'}
-          <Text className="text-btnColor">book in one click</Text>.
+          Planifiez vos travaux électriques ou{'\n'}fibre optique en{' '}
+          <Text className="text-btnColor">un clic !</Text>
         </Text>
       </View>
       <View className="relative bg-textInput my-10 mx-5 rounded-full flex-row ">
@@ -61,19 +75,19 @@ const Accuil = () => {
       </View>
 
       <View className="flex-auto ">
-        <View className="justify-center items-center">
+        {/* <View className="justify-center items-center">
           <Text className="text-lg font-bold text-txt">
             Services principaux
           </Text>
-        </View>
+        </View> */}
         <Carousel
           className="flex-auto"
           loop
           mode="parallax"
           modeConfig={{
-            parallaxScrollingScale: 0.7,
-            parallaxAdjacentItemScale: 0.6,
-            parallaxScrollingOffset: 200,
+            parallaxScrollingScale: 1,
+            parallaxScrollingOffset: 95,
+            parallaxAdjacentItemScale: 0.8,
           }}
           width={width}
           height={350}
@@ -82,16 +96,8 @@ const Accuil = () => {
           // autoPlayInterval={8000}
           scrollAnimationDuration={3000}
           renderItem={({item}) => (
-            <View className="items-center justify-center flex-1">
-              <Text className="text-lg p-3">{item.title}</Text>
-              {/* <Image
-                source={item.img}
-                style={{
-                  width: width * 0.9,
-                  height: 420,
-                  borderRadius: 15,
-                }}
-              /> */}
+            <View className="items-center justify-center">
+              {/* <Text className="text-lg p-3">{item.title}</Text> */}
               <View
                 style={{
                   shadowColor: '#000',
@@ -105,8 +111,8 @@ const Accuil = () => {
                   source={item.img}
                   resizeMode="cover"
                   style={{
-                    width: width * 0.9,
-                    height: 420,
+                    width: width * 0.75,
+                    height: 170,
                     borderRadius: 15,
                     justifyContent: 'flex-end',
                     alignItems: 'flex-start',

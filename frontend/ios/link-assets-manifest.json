@@ -1,0 +1,33 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Merienda-Black.ttf",
+      "sha1": "c13bc793ae34cc4b5f8e23bd7ee0d16e4bda943a"
+    },
+    {
+      "path": "assets/fonts/Merienda-Bold.ttf",
+      "sha1": "2bd9115fd6058f7fe1c72b6be29fea9d8780e913"
+    },
+    {
+      "path": "assets/fonts/Merienda-ExtraBold.ttf",
+      "sha1": "628f58357e2730313e139222d7cf7cd7760fdc3f"
+    },
+    {
+      "path": "assets/fonts/Merienda-Light.ttf",
+      "sha1": "953f29093bff9cd0fa4e5869b9e2086351f1a73f"
+    },
+    {
+      "path": "assets/fonts/Merienda-Medium.ttf",
+      "sha1": "ade23b955296b96f757fab94de3bc793695166e9"
+    },
+    {
+      "path": "assets/fonts/Merienda-Regular.ttf",
+      "sha1": "b7e33ae3966448c2c65e9b3554306a5269fe155a"
+    },
+    {
+      "path": "assets/fonts/Merienda-SemiBold.ttf",
+      "sha1": "590d52f719278cf2da4f05d3f8f744c740f04c69"
+    }
+  ]
+}
