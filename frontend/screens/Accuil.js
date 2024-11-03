@@ -9,32 +9,32 @@ import {
 } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import fibre_optique from '../assets/fibre-optique.jpg';
-import installation_electrique from '../assets/installation-electrique.jpg';
-import maintenance from '../assets/maintenance.jpg';
-import mise_aux_normes from '../assets/mise-aux-normes.jpg';
+import fibre_optique from '../assets/fibre_optique_slide.png';
+import installation_electrique from '../assets/installation_electrique_slide.png';
+import maintenance from '../assets/maintenance_slide.png';
+import mise_aux_normes from '../assets/mise_aux_normes_slide.png';
 import Carousel from 'react-native-reanimated-carousel';
 import Svg, {Circle} from 'react-native-svg';
 
 const data = [
   {
     title: 'Fibre optique',
-    text: 'Connectez-vous à l’avenir avec la fibre haute performance.',
+    text: 'Une panne électrique ? Planifiez une intervention rapide pour un retour à la normale sans attendre.',
     img: fibre_optique,
   },
   {
     title: 'Installation électrique',
-    text: 'Pourquoi passer à la fibre optique ? Quels avantages pour vous ?',
+    text: 'Optimisez vos coûts énergétiques avec des installations électriques de dernière génération.',
     img: installation_electrique,
   },
   {
     title: 'Maintenance et dépannage',
-    text: 'Service rapide et efficace.',
+    text: 'Votre réseau actuel répond-il à vos besoins ? Explorez les avantages de la fibre optique.',
     img: maintenance,
   },
   {
     title: 'Mise aux normes',
-    text: 'Modernisation et sécurité de vos installations.',
+    text: 'Vous rencontrez des coupures de courant ? Notre équipe est là pour vous aider.',
     img: mise_aux_normes,
   },
 ];
@@ -86,7 +86,7 @@ const Accuil = () => {
           mode="parallax"
           modeConfig={{
             parallaxScrollingScale: 1,
-            parallaxScrollingOffset: 95,
+            parallaxScrollingOffset: 120,
             parallaxAdjacentItemScale: 0.8,
           }}
           width={width}
@@ -100,32 +100,37 @@ const Accuil = () => {
               {/* <Text className="text-lg p-3">{item.title}</Text> */}
               <View
                 style={{
+                  // width: width * 0.7,
+                  // height: 150,
+                  borderRadius: 15,
+                  // backgroundColor: '#fffbeb',
                   shadowColor: '#000',
                   shadowOffset: {width: 0, height: 4},
                   shadowOpacity: 0.8,
                   shadowRadius: 5,
                   elevation: 10,
-                  borderRadius: 15,
                 }}>
                 <ImageBackground
                   source={item.img}
                   resizeMode="cover"
                   style={{
-                    width: width * 0.75,
-                    height: 170,
+                    width: width * 0.7,
+                    height: 150,
                     borderRadius: 15,
-                    justifyContent: 'flex-end',
-                    alignItems: 'flex-start',
                   }}
                   imageStyle={{borderRadius: 15}}>
                   <View
                     style={{
-                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                      borderTopRightRadius: 15,
-                      borderBottomRightRadius: 15,
-                      marginBottom: 30,
+                      // position: 'absolute',
+                      // backgroundColor: 'red',
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+                      flex: 1,
+                      paddingTop: 6,
+                      paddingLeft: 4,
+                      marginRight: 100,
                     }}>
-                    <Text className=" text-txt text-[26px] p-2">
+                    <Text className=" text-text2 text-[14px] p-2 leading-6 tracking-wide">
                       {item.text}
                     </Text>
                   </View>
