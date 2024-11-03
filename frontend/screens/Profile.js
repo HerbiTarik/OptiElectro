@@ -215,7 +215,7 @@ const Profile = () => {
           <View className="bg-accent h-px mx-10 rounded-full mb-4"></View>
 
           <View className="pl-10 pr-10 pt-5 flex-auto">
-            <View className="bg-[#e4e4e7] mb-3 rounded-full flex-row items-center">
+            <View className="bg-accent mb-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="person-outline"
@@ -234,7 +234,7 @@ const Profile = () => {
               />
             </View>
 
-            <View className="bg-[#e4e4e7] my-3 rounded-full flex-row items-center">
+            <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="person-outline"
@@ -253,7 +253,7 @@ const Profile = () => {
                 }
               />
             </View>
-            <View className="bg-[#e4e4e7] my-3 rounded-full flex-row items-center">
+            <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Icon name="email" size={20} className="text-placeholder" />
               </View>
@@ -266,7 +266,7 @@ const Profile = () => {
                 }
               />
             </View>
-            <View className="bg-[#e4e4e7] my-3 rounded-full flex-row items-center">
+            <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="call-outline"
@@ -303,7 +303,7 @@ const Profile = () => {
                 }
               />
             </View>
-            <View className="bg-[#e4e4e7] my-3 rounded-full flex-row items-center">
+            <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="location-outline"

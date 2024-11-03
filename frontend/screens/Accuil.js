@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   ImageBackground,
+  Pressable,
 } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,8 +16,14 @@ import maintenance from '../assets/maintenance_slide.png';
 import mise_aux_normes from '../assets/mise_aux_normes_slide.png';
 import Carousel from 'react-native-reanimated-carousel';
 import Svg, {Circle} from 'react-native-svg';
+import {useNavigation} from '@react-navigation/native';
 
 const data = [
+  {
+    title: 'Maintenance et dépannage',
+    text: 'Votre réseau actuel répond-il à vos besoins ? Explorez les avantages de la fibre optique.',
+    img: maintenance,
+  },
   {
     title: 'Fibre optique',
     text: 'Une panne électrique ? Planifiez une intervention rapide pour un retour à la normale sans attendre.',
@@ -28,11 +35,6 @@ const data = [
     img: installation_electrique,
   },
   {
-    title: 'Maintenance et dépannage',
-    text: 'Votre réseau actuel répond-il à vos besoins ? Explorez les avantages de la fibre optique.',
-    img: maintenance,
-  },
-  {
     title: 'Mise aux normes',
     text: 'Vous rencontrez des coupures de courant ? Notre équipe est là pour vous aider.',
     img: mise_aux_normes,
@@ -40,17 +42,23 @@ const data = [
 ];
 
 const Accuil = () => {
+  const navigation = useNavigation();
   // const carouselRef = useRef(null);
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
+
+  handlePress = () => {
+    navigation.navigate('ServicesScreen');
+  };
 
   return (
     <View className="flex-1">
       <View className="absolute">
         <Svg height={height} width={width} viewBox="0 0 100 100">
-          <Circle cx="75" cy="-35" r="100" fill="#f97316" />
+          <Circle cx="75" cy="-38" r="100" fill="#0284c7" />
         </Svg>
       </View>
+
       <View className="items-center justify-center pt-8 pb-10">
         <Text
           className="text-txt text-lg "
@@ -64,15 +72,21 @@ const Accuil = () => {
           <Text className="text-btnColor">un clic !</Text>
         </Text>
       </View>
-      <View className="relative bg-textInput my-10 mx-5 rounded-full flex-row ">
-        <TextInput
-          className="flex-auto py-3 pl-5 placeholder:text-placeholder text-base text-text2"
-          placeholder="Find works to schedule..."
-        />
-        <View className="bg-btnColor items-center  p-2.5 m-1 justify-center rounded-full mr-2">
-          <Ionicons name="search-outline" size={24} color="black" />
+      <Pressable
+        onPress={handlePress}
+        className="relative bg-slate-900  rounded-full mt-8 mb-10 mx-8">
+        <View className=" bg-accent  rounded-full  flex-auto flex-row">
+          <View className="flex-auto justify-center pl-5">
+            <Text className="text-base text-text2">
+              Quel service recherchez-vous ?
+            </Text>
+          </View>
+
+          <View className="bg-btnColor items-center  p-2.5 m-1 justify-center rounded-full mr-2">
+            <Ionicons name="search-outline" size={24} color="black" />
+          </View>
         </View>
-      </View>
+      </Pressable>
 
       <View className="flex-auto ">
         {/* <View className="justify-center items-center">
