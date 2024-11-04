@@ -1,5 +1,3 @@
-import validate from 'validate.js';
-
 const constraints = {
   firstName: {
     presence: {
@@ -30,6 +28,11 @@ const constraints = {
     length: {
       minimum: 6,
       message: '^Password must be at least 6 characters',
+    },
+    format: {
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+      message:
+        '^Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, et un chiffre',
     },
   },
   confirmPassword: {

@@ -23,7 +23,8 @@ import {Buffer} from 'buffer';
 import Icon from 'react-native-vector-icons/Fontisto';
 import Btn from '../components/Btn';
 import {Picker} from '@react-native-picker/picker';
-import {blue, green} from 'react-native-reanimated/lib/typescript/Colors';
+import contraints from '../validationForm/validationUpdateData';
+import {validate} from 'validate.js';
 
 const Profile = () => {
   const [imageUri, setImageUri] = useState(null);
@@ -37,7 +38,7 @@ const Profile = () => {
   const [number, setNumber] = useState(null);
   const [locationUp, setLocation] = useState(null);
   const [selectedValue, setSelectedValue] = useState(null);
-
+  const [errors, setErrors] = useState({});
   const [tokenDecode, setTokenDecode] = useState(null);
 
   useEffect(() => {
@@ -90,6 +91,15 @@ const Profile = () => {
         selectedValue !== null ? selectedValue : userData.countrynumber,
       id: userData.id,
     };
+
+    const validationErrors = validate(data, contraints);
+    if (validationErrors) {
+      setErrors(validationErrors);
+
+      return;
+    } else {
+      setErrors({});
+    }
     try {
       const response = await axios.put(
         'http://10.0.2.2:3000/api/users/updateData',
@@ -233,6 +243,9 @@ const Profile = () => {
                 }
               />
             </View>
+            {errors.first_name && (
+              <Text className="text-btnColor pl-5">{errors.first_name[0]}</Text>
+            )}
 
             <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
@@ -253,6 +266,9 @@ const Profile = () => {
                 }
               />
             </View>
+            {errors.last_name && (
+              <Text className="text-btnColor pl-5">{errors.last_name[0]}</Text>
+            )}
             <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Icon name="email" size={20} className="text-placeholder" />
@@ -266,6 +282,9 @@ const Profile = () => {
                 }
               />
             </View>
+            {errors.email && (
+              <Text className="text-btnColor pl-5">{errors.email[0]}</Text>
+            )}
             <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
@@ -303,6 +322,15 @@ const Profile = () => {
                 }
               />
             </View>
+            {errors.countrynumber && (
+              <Text className="text-btnColor pl-5">
+                {errors.countrynumber[0]}
+              </Text>
+            )}
+
+            {errors.number && (
+              <Text className="text-btnColor pl-5">{errors.number[0]}</Text>
+            )}
             <View className="bg-accent my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
@@ -322,7 +350,9 @@ const Profile = () => {
                 }
               />
             </View>
-
+            {errors.location && (
+              <Text className="text-btnColor pl-5">{errors.location[0]}</Text>
+            )}
             <Btn textClassName="mt-3 mb-12 py-3" onPutProfile={putProfile}>
               Save
             </Btn>

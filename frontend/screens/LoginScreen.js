@@ -28,7 +28,7 @@ const LoginScreen = () => {
       );
 
       const {token} = response.data;
-      console.log(token);
+
       if (response.status === 200 || response.status === 201) {
         await AsyncStorage.setItem('token', token);
         Alert.alert('Login successful', 'You are now logged in');

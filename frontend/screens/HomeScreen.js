@@ -31,7 +31,7 @@ const HomeScreen = () => {
           }
           return <Ionicons name={iconName} size={28} color={color} />;
         },
-        tabBarActiveTintColor: '#0f172a',
+        tabBarActiveTintColor: '#0284c7',
         tabBarInactiveTintColor: '#0f172a',
         tabBarShowLabel: false,
         headerShown: false,
