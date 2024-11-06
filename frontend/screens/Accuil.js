@@ -7,8 +7,9 @@ import {
   StyleSheet,
   ImageBackground,
   Pressable,
+  Modal,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import fibre_optique from '../assets/fibre_optique_slide.png';
 import installation_electrique from '../assets/installation_electrique_slide.png';
@@ -17,6 +18,7 @@ import mise_aux_normes from '../assets/mise_aux_normes_slide.png';
 import Carousel from 'react-native-reanimated-carousel';
 import Svg, {Circle} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
+import ModalServices from '../components/ModalServices';
 
 const data = [
   {
@@ -42,13 +44,16 @@ const data = [
 ];
 
 const Accuil = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
   const navigation = useNavigation();
-  // const carouselRef = useRef(null);
+
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
 
   handlePress = () => {
-    navigation.navigate('ServicesScreen');
+    // navigation.navigate('ServicesScreen');
+    setModalVisible(true);
   };
 
   return (
@@ -58,6 +63,16 @@ const Accuil = () => {
           <Circle cx="75" cy="-38" r="100" fill="#0284c7" />
         </Svg>
       </View>
+      <ModalServices
+        onRequestClose={() => setModalVisible(false)}
+        onPressIn={() => setIsPressed(true)}
+        onPressOut={() => {
+          setIsPressed(false);
+          setModalVisible(false);
+        }}
+        isPressedModal={isPressed}
+        visibleModal={modalVisible}
+      />
 
       <View className="items-center justify-center pt-8 pb-10">
         <Text
@@ -89,11 +104,6 @@ const Accuil = () => {
       </Pressable>
 
       <View className="flex-auto ">
-        {/* <View className="justify-center items-center">
-          <Text className="text-lg font-bold text-txt">
-            Services principaux
-          </Text>
-        </View> */}
         <Carousel
           className="flex-auto"
           loop
