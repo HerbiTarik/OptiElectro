@@ -1,8 +1,9 @@
 import {Dimensions, View, Text, Modal, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Svg, {Circle} from 'react-native-svg';
+import axios from 'axios';
 
 const ModalServices = ({
   onRequestClose,
@@ -11,15 +12,48 @@ const ModalServices = ({
   isPressedModal,
   visibleModal,
 }) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItms] = useState([
-    {label: 'Services en fibre optique', value: 'services en fibre optique'},
-    {label: 'Services en électricité', value: 'services en électricité'},
-    {label: 'Services combinés', value: 'services combinés'},
-  ]);
   const {height} = Dimensions.get('window');
   const {width} = Dimensions.get('window');
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItms] = useState([]);
+
+  const [itemId, setItemId] = useState();
+
+  const [openTr, setOpenTr] = useState(false);
+  const [valueTr, setValueTr] = useState(null);
+  const [itemsTr, setItmsTr] = useState([]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await axios.get(`http://10.0.2.2:3000/api/services`);
+        const fetchedServices = res.data.map(service => ({
+          label: service.nom,
+          value: service.id,
+        }));
+        setItms(fetchedServices);
+
+        const response = await axios.get(`http://10.0.2.2:3000/api/activites`);
+        const fetchedActivites = response.data.map(activite => ({
+          label: activite.nom,
+          value: activite.id,
+        }));
+        setItmsTr(fetchedActivites);
+      } catch (error) {
+        console.error('Erreur', error);
+      }
+    };
+    fetchServices();
+  }, []);
+  console.log(itemsTr);
+
+  useEffect(() => {
+    const valueItem = items.map(item => item.value);
+    setItemId(valueItem);
+    console.log(valueItem);
+  }, [value]);
+
   return (
     <Modal
       animationType="slide"
@@ -58,10 +92,11 @@ const ModalServices = ({
               <Ionicons name="close-outline" size={24} color="black" />
             </Pressable>
           </View>
-          <View className="mt-10">
+          <View className="mt-10 z-40">
             <DropDownPicker
               // disabled={true}
               className="rounded-[25px] flex-auto border-0 pl-5"
+              max={1}
               open={open}
               value={value}
               items={items}
@@ -72,6 +107,7 @@ const ModalServices = ({
               placeholderStyle={{color: '#6b7280'}}
               searchable={true}
               searchPlaceholder="Saisissez l'un de nos services"
+              // autoScroll={true}
               searchContainerStyle={{
                 borderWidth: 0,
                 // paddingLeft: 0,
@@ -90,6 +126,50 @@ const ModalServices = ({
               dropDownContainerStyle={{
                 borderRadius: 25,
                 borderWidth: 0,
+                maxHeight: 180,
+              }}
+              listItemLabelStyle={{
+                marginLeft: 20,
+              }}
+            />
+          </View>
+          <View className="mt-10 z-30">
+            <DropDownPicker
+              listMode="SCROLLVIEW"
+              disabled={value == null}
+              className="rounded-[25px] flex-auto border-0 pl-5"
+              open={openTr}
+              value={valueTr}
+              items={itemsTr}
+              setOpen={setOpenTr}
+              setValue={setValueTr}
+              setItems={setItmsTr}
+              placeholder="Choisissez un type d'intervention"
+              placeholderStyle={{color: '#6b7280'}}
+              searchable={true}
+              searchPlaceholder="Cherchez un type d'intervention"
+              autoScroll={true}
+              searchContainerStyle={{
+                borderWidth: 0,
+                // paddingLeft: 0,
+                borderRadius: 12,
+                borderBottomWidth: 0.5,
+                borderColor: 'black',
+                alignItems: 'center',
+                marginHorizontal: 10,
+              }}
+              searchTextInputStyle={{
+                borderRadius: 25,
+                borderWidth: 0.5,
+                paddingLeft: 20,
+              }}
+              disableBorderRadius={true}
+              dropDownContainerStyle={{
+                borderRadius: 25,
+                borderWidth: 0,
+                maxHeight: 180,
+                position: 'relative',
+                top: 0,
               }}
               listItemLabelStyle={{
                 marginLeft: 20,
