@@ -10,7 +10,7 @@ router.post('/users/registration', userController.registration);
 router.post('/users/login', userController.login);
 router.put('/users/image', userController.AddImage);
 router.get('/services', ServicesControllers.getServicesController);
-router.get('/activites', ServicesControllers.getTypesIntervention);
+router.get('/activites/:id', ServicesControllers.getTypesIntervention);
 router.get('/users', userController.getAllUsers); // il faut mettre le chemin racine en dernier
 
 module.exports = router;

@@ -6,8 +6,11 @@ const Services = {
     return res.rows;
   },
 
-  getActivites: async () => {
-    const res = await pool.query('select * from activites');
+  getActivites: async id => {
+    const res = await pool.query(
+      'select * from activites WHERE type_activite_id = $1',
+      [id],
+    );
     return res.rows;
   },
 };

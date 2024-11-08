@@ -34,7 +34,25 @@ const ModalServices = ({
         }));
         setItms(fetchedServices);
 
-        const response = await axios.get(`http://10.0.2.2:3000/api/activites`);
+        //   const response = await axios.get(`http://10.0.2.2:3000/api/activites`);
+        //   const fetchedActivites = response.data.map(activite => ({
+        //     label: activite.nom,
+        //     value: activite.id,
+        //   }));
+        //   setItmsTr(fetchedActivites);
+      } catch (error) {
+        console.error('Erreur', error);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  useEffect(() => {
+    const fetchActivites = async () => {
+      try {
+        const response = await axios.get(
+          `http://10.0.2.2:3000/api/activites/${value == null ? 1 : value}`,
+        );
         const fetchedActivites = response.data.map(activite => ({
           label: activite.nom,
           value: activite.id,
@@ -44,15 +62,11 @@ const ModalServices = ({
         console.error('Erreur', error);
       }
     };
-    fetchServices();
-  }, []);
-  console.log(itemsTr);
-
-  useEffect(() => {
-    const valueItem = items.map(item => item.value);
-    setItemId(valueItem);
-    console.log(valueItem);
+    fetchActivites();
   }, [value]);
+
+  console.log(value);
+  console.log(valueTr);
 
   return (
     <Modal

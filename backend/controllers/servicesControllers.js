@@ -13,8 +13,9 @@ const ServicesControllers = {
   },
 
   getTypesIntervention: async (req, res) => {
+    // const id = req.params.id;
     try {
-      const activites = await Services.getActivites();
+      const activites = await Services.getActivites(req.params.id);
       res.status(200).json(activites);
     } catch (error) {
       console.error('Erreur : ', error);
