@@ -29,6 +29,8 @@
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.20.2",
+    "react-native-get-random-values": "^1.11.0",
+    "react-native-google-places-autocomplete": "^2.5.7",
     "react-native-keyboard-controller": "^1.12.7",
     "react-native-lorem-ipsum": "^0.1.0",
     "react-native-reanimated": "^3.14.0",

@@ -1,13 +1,10 @@
 import {
   View,
   Text,
-  TextInput,
   Dimensions,
-  Image,
-  StyleSheet,
   ImageBackground,
   Pressable,
-  Modal,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';

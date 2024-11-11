@@ -1,9 +1,19 @@
-import {Dimensions, View, Text, Modal, Pressable} from 'react-native';
+import {
+  Dimensions,
+  View,
+  Text,
+  Modal,
+  Pressable,
+  TextInput,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Svg, {Circle} from 'react-native-svg';
 import axios from 'axios';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import 'react-native-get-random-values';
+import Btn from './Btn';
 
 const ModalServices = ({
   onRequestClose,
@@ -17,6 +27,7 @@ const ModalServices = ({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItms] = useState([]);
+  const [location, setLocation] = useState();
 
   const [itemId, setItemId] = useState();
 
@@ -33,13 +44,6 @@ const ModalServices = ({
           value: service.id,
         }));
         setItms(fetchedServices);
-
-        //   const response = await axios.get(`http://10.0.2.2:3000/api/activites`);
-        //   const fetchedActivites = response.data.map(activite => ({
-        //     label: activite.nom,
-        //     value: activite.id,
-        //   }));
-        //   setItmsTr(fetchedActivites);
       } catch (error) {
         console.error('Erreur', error);
       }
@@ -65,8 +69,9 @@ const ModalServices = ({
     fetchActivites();
   }, [value]);
 
-  console.log(value);
-  console.log(valueTr);
+  const handleBook = () => {
+    console.log('cucu !');
+  };
 
   return (
     <Modal
@@ -74,7 +79,8 @@ const ModalServices = ({
       transparent={true}
       onRequestClose={onRequestClose}
       visible={visibleModal}
-      style={{marginTop: 10}}>
+      style={{marginTop: 10}}
+      statusBarTranslucent={true}>
       <View
         className="flex-1 justify-end"
         style={{backgroundColor: 'rgba(0,0,0,0.3)'}}>
@@ -106,7 +112,7 @@ const ModalServices = ({
               <Ionicons name="close-outline" size={24} color="black" />
             </Pressable>
           </View>
-          <View className="mt-10 z-40">
+          <View className="z-40 flex-auto justify-center ">
             <DropDownPicker
               // disabled={true}
               className="rounded-[25px] flex-auto border-0 pl-5"
@@ -147,7 +153,7 @@ const ModalServices = ({
               }}
             />
           </View>
-          <View className="mt-10 z-30">
+          <View className="z-30 flex-auto justify-center ">
             <DropDownPicker
               listMode="SCROLLVIEW"
               disabled={value == null}
@@ -189,6 +195,45 @@ const ModalServices = ({
                 marginLeft: 20,
               }}
             />
+          </View>
+          {/* <View>
+            <GooglePlacesAutocomplete
+              placeholder="Entrez votre adresse"
+              onPress={(data, details = null) => {
+                console.log(data, details);
+              }}
+              query={{
+                key: 'b17536078a02866356add9a54ae9d6b62f68b03c5e132b758d98f4d1b7e86d55', // Remplacez par votre clé API Google Maps
+                language: 'fr', // Langue des suggestions
+              }}
+              onFail={error => console.log(error)}
+              style={{flex: 1}}
+            />
+          </View> */}
+          <View className="flex-auto  justify-center">
+            <View className="bg-white rounded-[25px] flex-row items-center">
+              <View className="pl-4">
+                <Ionicons
+                  name="location-outline"
+                  size={20}
+                  className="text-[#6b7280]"
+                />
+              </View>
+
+              <TextInput
+                editable={valueTr !== null}
+                className="p-2.5 flex-auto"
+                onChangeText={setLocation}
+                value={location}
+                placeholder="Choisissez le lieu de l'intervention"
+                placeholderTextColor={'#6b7280'}
+              />
+            </View>
+          </View>
+          <View className="flex-auto justify-center my-12">
+            <Btn textClassName="py-3" onBook={handleBook}>
+              Chercher un spécialiste
+            </Btn>
           </View>
         </View>
       </View>

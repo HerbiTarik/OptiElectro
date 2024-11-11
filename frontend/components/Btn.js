@@ -8,6 +8,7 @@ const Btn = ({
   onClick,
   onLogin,
   onPutProfile,
+  onBook,
 }) => {
   const handlePress = () => {
     if (onPressLoginScreen) {
@@ -21,6 +22,9 @@ const Btn = ({
     }
     if (onPutProfile) {
       onPutProfile();
+    }
+    if (onBook) {
+      onBook();
     }
   };
   return (
