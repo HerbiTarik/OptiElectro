@@ -5,6 +5,7 @@ import {
   Text,
   Alert,
   TextInput,
+  Dimensions,
   ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -25,8 +26,11 @@ import Btn from '../components/Btn';
 import {Picker} from '@react-native-picker/picker';
 import contraints from '../validationForm/validationUpdateData';
 import {validate} from 'validate.js';
+import Svg, {Rect} from 'react-native-svg';
 
 const Profile = () => {
+  const {width} = Dimensions.get('window');
+  const {height} = Dimensions.get('window');
   const [imageUri, setImageUri] = useState(null);
   // const [imageConvertie, setImageConvertie] = useState(null);
 
@@ -205,11 +209,23 @@ const Profile = () => {
 
   return (
     <KeyboardProvider>
-      <View className="flex-1 bg-primary">
+      <View className="flex-1 bg-fond">
         <KeyboardAwareScrollView
           contentContainerStyle={{flexGrow: 1}}
           keyboardShouldPersistTaps="handled">
-          <View className="justify-center items-center p-10">
+          <View className="absolute">
+            <Svg height={height + 10} width={width + 10}>
+              <Rect
+                x="0"
+                y="0"
+                width={width}
+                height={'21%'}
+                fill="#0284c7"
+                strokeWidth="0"
+              />
+            </Svg>
+          </View>
+          <View className="justify-center items-center mt-20 p-3">
             <Image
               source={photo}
               className="w-36 h-36 flex-auto rounded-full"
@@ -222,10 +238,10 @@ const Profile = () => {
             </Pressable>
           </View>
 
-          <View className="bg-accent h-px mx-10 rounded-full mb-4"></View>
+          <View className="bg-primary h-px mx-10 rounded-full mb-4"></View>
 
           <View className="pl-10 pr-10 pt-5 flex-auto">
-            <View className="bg-accent mb-3 rounded-full flex-row items-center">
+            <View className="bg-white mb-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="person-outline"
@@ -247,7 +263,7 @@ const Profile = () => {
               <Text className="text-btnColor pl-5">{errors.first_name[0]}</Text>
             )}
 
-            <View className="bg-accent my-3 rounded-full flex-row items-center">
+            <View className="bg-white my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="person-outline"
@@ -269,7 +285,7 @@ const Profile = () => {
             {errors.last_name && (
               <Text className="text-btnColor pl-5">{errors.last_name[0]}</Text>
             )}
-            <View className="bg-accent my-3 rounded-full flex-row items-center">
+            <View className="bg-white my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Icon name="email" size={20} className="text-placeholder" />
               </View>
@@ -285,7 +301,7 @@ const Profile = () => {
             {errors.email && (
               <Text className="text-btnColor pl-5">{errors.email[0]}</Text>
             )}
-            <View className="bg-accent my-3 rounded-full flex-row items-center">
+            <View className="bg-white my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="call-outline"
@@ -331,7 +347,7 @@ const Profile = () => {
             {errors.number && (
               <Text className="text-btnColor pl-5">{errors.number[0]}</Text>
             )}
-            <View className="bg-accent my-3 rounded-full flex-row items-center">
+            <View className="bg-white my-3 rounded-full flex-row items-center">
               <View className="pl-5">
                 <Ionicons
                   name="location-outline"

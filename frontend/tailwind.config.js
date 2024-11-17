@@ -21,6 +21,7 @@ module.exports = {
         error: '#b91c1c',
         btnSecondary: '#f8fafc',
         textInput: '#e4e4e7',
+        fond: '#f3f4f6',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

@@ -54,7 +54,7 @@ const Accuil = () => {
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-fond">
       <View className="absolute">
         <Svg height={height} width={width} viewBox="0 0 100 100">
           <Circle cx="75" cy="-38" r="100" fill="#0284c7" />

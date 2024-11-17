@@ -14,6 +14,7 @@ import axios from 'axios';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import 'react-native-get-random-values';
 import Btn from './Btn';
+import {useNavigation} from '@react-navigation/native';
 
 const ModalServices = ({
   onRequestClose,
@@ -22,6 +23,7 @@ const ModalServices = ({
   isPressedModal,
   visibleModal,
 }) => {
+  const navigation = useNavigation();
   const {height} = Dimensions.get('window');
   const {width} = Dimensions.get('window');
   const [open, setOpen] = useState(false);
@@ -70,7 +72,8 @@ const ModalServices = ({
   }, [value]);
 
   const handleBook = () => {
-    console.log('cucu !');
+    navigation.navigate('CompanySearchScreen.js');
+    console.log(value, valueTr, location);
   };
 
   return (
