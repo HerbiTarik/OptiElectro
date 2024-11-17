@@ -9,6 +9,8 @@ const Btn = ({
   onLogin,
   onPutProfile,
   onBook,
+
+  disabled,
 }) => {
   const handlePress = () => {
     if (onPressLoginScreen) {
@@ -28,7 +30,7 @@ const Btn = ({
     }
   };
   return (
-    <Pressable onPress={handlePress}>
+    <Pressable onPress={handlePress} disabled={disabled}>
       <View className={`bg-btnColor px-12 py-4 rounded-full ${textClassName}`}>
         <Text className="text-black text-lg font-bold text-center">
           {children}

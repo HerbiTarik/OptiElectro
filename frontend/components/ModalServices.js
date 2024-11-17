@@ -29,7 +29,7 @@ const ModalServices = ({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItms] = useState([]);
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(null);
 
   const [itemId, setItemId] = useState();
 
@@ -234,7 +234,10 @@ const ModalServices = ({
             </View>
           </View>
           <View className="flex-auto justify-center my-12">
-            <Btn textClassName="py-3" onBook={handleBook}>
+            <Btn
+              textClassName="py-3"
+              disabled={location == null}
+              onBook={handleBook}>
               Chercher un spécialiste
             </Btn>
           </View>
