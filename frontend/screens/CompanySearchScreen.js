@@ -7,8 +7,8 @@ const CompanySearchScreen = () => {
   const [rating, setRating] = useState(3.5);
   const [isEnabled, setIsEnabled] = useState(false);
   return (
-    <View className="flex-1">
-      <View className="bg-white mx-3 mt-5 rounded-[8px] shadow-md shadow-[black]">
+    <View className="flex-1 bg-fond">
+      <View className="bg-white mx-3 mt-5 rounded-[10px] shadow-md shadow-[black]">
         <View className="p-3">
           <View className="flex-row">
             <Image
@@ -36,6 +36,14 @@ const CompanySearchScreen = () => {
                 }}
               />
             </View>
+          </View>
+          <View>
+            <Text>Installation électrique et fibre optique de qualité.</Text>
+            <Text>Disponible à Paris</Text>
+            <Text>Intervention moyenne : 2 jours</Text>
+            <Text>Tarifs : 100-300 $</Text>
+            <Text>Certifié RGE / Partenaire Schneider Electric</Text>
+            <Text>Prochaine disponibilté : 20 novembre 2024</Text>
           </View>
         </View>
       </View>
