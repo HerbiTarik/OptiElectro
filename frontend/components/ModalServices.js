@@ -11,7 +11,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Svg, {Circle} from 'react-native-svg';
 import axios from 'axios';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import 'react-native-get-random-values';
 import Btn from './Btn';
 import {useNavigation} from '@react-navigation/native';
@@ -72,6 +71,7 @@ const ModalServices = ({
   }, [value]);
 
   const handleBook = () => {
+    onRequestClose();
     navigation.navigate('CompanySearchScreen.js');
     console.log(value, valueTr, location);
   };
@@ -199,20 +199,50 @@ const ModalServices = ({
               }}
             />
           </View>
-          {/* <View>
-            <GooglePlacesAutocomplete
-              placeholder="Entrez votre adresse"
-              onPress={(data, details = null) => {
-                console.log(data, details);
+          {/* <View className="z-20 flex-auto justify-center ">
+            <DropDownPicker
+              listMode="SCROLLVIEW"
+              disabled={value == null}
+              className="rounded-[25px] flex-auto border-0 pl-5"
+              open={openTr}
+              value={valueTr}
+              items={itemsTr}
+              setOpen={setOpenTr}
+              setValue={setValueTr}
+              setItems={setItmsTr}
+              placeholder="Choisissez un type d'intervention"
+              placeholderStyle={{color: '#6b7280'}}
+              searchable={true}
+              searchPlaceholder="Cherchez un type d'intervention"
+              autoScroll={true}
+              searchContainerStyle={{
+                borderWidth: 0,
+                // paddingLeft: 0,
+                borderRadius: 12,
+                borderBottomWidth: 0.5,
+                borderColor: 'black',
+                alignItems: 'center',
+                marginHorizontal: 10,
               }}
-              query={{
-                key: 'b17536078a02866356add9a54ae9d6b62f68b03c5e132b758d98f4d1b7e86d55', // Remplacez par votre clé API Google Maps
-                language: 'fr', // Langue des suggestions
+              searchTextInputStyle={{
+                borderRadius: 25,
+                borderWidth: 0.5,
+                paddingLeft: 20,
               }}
-              onFail={error => console.log(error)}
-              style={{flex: 1}}
+              disableBorderRadius={true}
+              dropDownContainerStyle={{
+                borderRadius: 25,
+                borderWidth: 0,
+                maxHeight: 180,
+                position: 'relative',
+                top: 0,
+              }}
+              listItemLabelStyle={{
+                marginLeft: 20,
+              }}
             />
           </View> */}
+
           <View className="flex-auto  justify-center">
             <View className="bg-white rounded-[25px] flex-row items-center">
               <View className="pl-4">
@@ -233,6 +263,7 @@ const ModalServices = ({
               />
             </View>
           </View>
+
           <View className="flex-auto justify-center my-12">
             <Btn
               textClassName="py-3"
