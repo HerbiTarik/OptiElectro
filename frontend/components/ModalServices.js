@@ -5,6 +5,7 @@ import {
   Modal,
   Pressable,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -23,18 +24,25 @@ const ModalServices = ({
   visibleModal,
 }) => {
   const navigation = useNavigation();
+
   const {height} = Dimensions.get('window');
   const {width} = Dimensions.get('window');
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItms] = useState([]);
-  const [location, setLocation] = useState(null);
-
-  const [itemId, setItemId] = useState();
 
   const [openTr, setOpenTr] = useState(false);
   const [valueTr, setValueTr] = useState(null);
   const [itemsTr, setItmsTr] = useState([]);
+
+  const [location, setLocation] = useState(null);
+
+  const [openLocation, setOpenLocation] = useState(false);
+  const [valueLocation, setValueLocation] = useState(null);
+  const [itemsCity, setItemsCity] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState(null);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -70,6 +78,21 @@ const ModalServices = ({
     fetchActivites();
   }, [value]);
 
+  // useEffect(() => {
+  //   const fetchLocation = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://neutrinoapi.net/geocode-address?user-id=herbitarik&api-key=zpDj2WNetWDYe0HgdSKOPatwODjTxWkdNA1UvkZcwA4monS8&address=${searchText}&country-code=FR&language=fr&fuzzy=true`,
+  //       );
+  //       console.log(response.data.locations);
+  //     } catch (error) {
+  //       console.error('Erreur', error);
+  //     }
+  //   };
+  //   fetchLocation();
+  // }, [searchText]);
+
+  console.log(searchText);
   const handleBook = () => {
     onRequestClose();
     navigation.navigate('CompanySearchScreen.js');
@@ -91,7 +114,9 @@ const ModalServices = ({
           style={{
             backgroundColor: '#eff6ff',
             height: height * 0.8,
-            padding: 20,
+            paddingTop: 20,
+            paddingLeft: 20,
+            paddingRight: 20,
             width: '100%',
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
@@ -115,162 +140,174 @@ const ModalServices = ({
               <Ionicons name="close-outline" size={24} color="black" />
             </Pressable>
           </View>
-          <View className="z-40 flex-auto justify-center ">
-            <DropDownPicker
-              // disabled={true}
-              className="rounded-[25px] flex-auto border-0 pl-5"
-              max={1}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItms}
-              placeholder="Choisissez un service"
-              placeholderStyle={{color: '#6b7280'}}
-              searchable={true}
-              searchPlaceholder="Saisissez l'un de nos services"
-              // autoScroll={true}
-              searchContainerStyle={{
-                borderWidth: 0,
-                // paddingLeft: 0,
-                borderRadius: 12,
-                borderBottomWidth: 0.5,
-                borderColor: 'black',
-                alignItems: 'center',
-                marginHorizontal: 10,
-              }}
-              searchTextInputStyle={{
-                borderRadius: 25,
-                borderWidth: 0.5,
-                paddingLeft: 20,
-              }}
-              disableBorderRadius={true}
-              dropDownContainerStyle={{
-                borderRadius: 25,
-                borderWidth: 0,
-                maxHeight: 180,
-              }}
-              listItemLabelStyle={{
-                marginLeft: 20,
-              }}
-            />
-          </View>
-          <View className="z-30 flex-auto justify-center ">
-            <DropDownPicker
-              listMode="SCROLLVIEW"
-              disabled={value == null}
-              className="rounded-[25px] flex-auto border-0 pl-5"
-              open={openTr}
-              value={valueTr}
-              items={itemsTr}
-              setOpen={setOpenTr}
-              setValue={setValueTr}
-              setItems={setItmsTr}
-              placeholder="Choisissez un type d'intervention"
-              placeholderStyle={{color: '#6b7280'}}
-              searchable={true}
-              searchPlaceholder="Cherchez un type d'intervention"
-              autoScroll={true}
-              searchContainerStyle={{
-                borderWidth: 0,
-                // paddingLeft: 0,
-                borderRadius: 12,
-                borderBottomWidth: 0.5,
-                borderColor: 'black',
-                alignItems: 'center',
-                marginHorizontal: 10,
-              }}
-              searchTextInputStyle={{
-                borderRadius: 25,
-                borderWidth: 0.5,
-                paddingLeft: 20,
-              }}
-              disableBorderRadius={true}
-              dropDownContainerStyle={{
-                borderRadius: 25,
-                borderWidth: 0,
-                maxHeight: 180,
-                position: 'relative',
-                top: 0,
-              }}
-              listItemLabelStyle={{
-                marginLeft: 20,
-              }}
-            />
-          </View>
-          {/* <View className="z-20 flex-auto justify-center ">
-            <DropDownPicker
-              listMode="SCROLLVIEW"
-              disabled={value == null}
-              className="rounded-[25px] flex-auto border-0 pl-5"
-              open={openTr}
-              value={valueTr}
-              items={itemsTr}
-              setOpen={setOpenTr}
-              setValue={setValueTr}
-              setItems={setItmsTr}
-              placeholder="Choisissez un type d'intervention"
-              placeholderStyle={{color: '#6b7280'}}
-              searchable={true}
-              searchPlaceholder="Cherchez un type d'intervention"
-              autoScroll={true}
-              searchContainerStyle={{
-                borderWidth: 0,
-                // paddingLeft: 0,
-                borderRadius: 12,
-                borderBottomWidth: 0.5,
-                borderColor: 'black',
-                alignItems: 'center',
-                marginHorizontal: 10,
-              }}
-              searchTextInputStyle={{
-                borderRadius: 25,
-                borderWidth: 0.5,
-                paddingLeft: 20,
-              }}
-              disableBorderRadius={true}
-              dropDownContainerStyle={{
-                borderRadius: 25,
-                borderWidth: 0,
-                maxHeight: 180,
-                position: 'relative',
-                top: 0,
-              }}
-              listItemLabelStyle={{
-                marginLeft: 20,
-              }}
-            />
-          </View> */}
-
-          <View className="flex-auto  justify-center">
-            <View className="bg-white rounded-[25px] flex-row items-center">
-              <View className="pl-4">
-                <Ionicons
-                  name="location-outline"
-                  size={20}
-                  className="text-[#6b7280]"
+          <View className="flex-auto mt-10">
+            <ScrollView className="flex-auto space-y-14">
+              <View className="z-40 flex-auto justify-center ">
+                <DropDownPicker
+                  listMode="SCROLLVIEW"
+                  className="rounded-[25px] flex-auto border-0 pl-5"
+                  max={1}
+                  open={open}
+                  value={value}
+                  items={items}
+                  setOpen={setOpen}
+                  setValue={setValue}
+                  setItems={setItms}
+                  placeholder="Choisissez un service"
+                  placeholderStyle={{color: '#6b7280'}}
+                  searchable={true}
+                  searchPlaceholder="Saisissez l'un de nos services"
+                  searchPlaceholderTextColor="#6b7280"
+                  // autoScroll={true}
+                  searchContainerStyle={{
+                    borderWidth: 0,
+                    // paddingLeft: 0,
+                    borderRadius: 12,
+                    borderBottomWidth: 0.5,
+                    borderColor: 'black',
+                    alignItems: 'center',
+                    marginHorizontal: 10,
+                  }}
+                  searchTextInputStyle={{
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    paddingLeft: 20,
+                  }}
+                  disableBorderRadius={true}
+                  dropDownContainerStyle={{
+                    borderRadius: 25,
+                    borderWidth: 0,
+                    maxHeight: 180,
+                    position: 'relative',
+                    top: 0,
+                  }}
+                  listItemLabelStyle={{
+                    marginLeft: 20,
+                  }}
+                />
+              </View>
+              <View className="z-30 flex-auto justify-center ">
+                <DropDownPicker
+                  listMode="SCROLLVIEW"
+                  disabled={value == null}
+                  className="rounded-[25px] flex-auto border-0 pl-5"
+                  open={openTr}
+                  value={valueTr}
+                  items={itemsTr}
+                  setOpen={setOpenTr}
+                  setValue={setValueTr}
+                  setItems={setItmsTr}
+                  placeholder="Choisissez un type d'intervention"
+                  placeholderStyle={{color: '#6b7280'}}
+                  searchable={true}
+                  searchPlaceholder="Cherchez un type d'intervention"
+                  searchPlaceholderTextColor="#6b7280"
+                  autoScroll={true}
+                  searchContainerStyle={{
+                    borderWidth: 0,
+                    borderRadius: 12,
+                    borderBottomWidth: 0.5,
+                    borderColor: 'black',
+                    alignItems: 'center',
+                    marginHorizontal: 10,
+                  }}
+                  searchTextInputStyle={{
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    paddingLeft: 20,
+                  }}
+                  disableBorderRadius={true}
+                  dropDownContainerStyle={{
+                    borderRadius: 25,
+                    borderWidth: 0,
+                    maxHeight: 180,
+                    position: 'relative',
+                    top: 0,
+                  }}
+                  listItemLabelStyle={{
+                    marginLeft: 20,
+                  }}
                 />
               </View>
 
-              <TextInput
-                editable={valueTr !== null}
-                className="p-2.5 flex-auto"
-                onChangeText={setLocation}
-                value={location}
-                placeholder="Choisissez le lieu de l'intervention"
-                placeholderTextColor={'#6b7280'}
-              />
-            </View>
-          </View>
+              <View className="z-40 flex-auto justify-center">
+                <DropDownPicker
+                  className="rounded-[25px] flex-auto border-0 pl-5"
+                  listMode="SCROLLVIEW"
+                  loading={searchText == null}
+                  disableLocalSearch={true}
+                  onChangeSearchText={text => {
+                    setSearchText(text);
+                  }}
+                  disabled={valueTr == null}
+                  open={openLocation}
+                  value={valueLocation}
+                  items={itemsCity}
+                  setOpen={setOpenLocation}
+                  setValue={setValueLocation}
+                  setItems={setItemsCity}
+                  placeholder="Entrez la ville de l'intervention"
+                  placeholderStyle={{color: '#6b7280'}}
+                  searchable={true}
+                  searchPlaceholder="Saisissez la ville d'intervention"
+                  searchPlaceholderTextColor="#6b7280"
+                  autoScroll={true}
+                  searchContainerStyle={{
+                    borderWidth: 0,
+                    borderRadius: 12,
+                    borderBottomWidth: 0.5,
+                    borderColor: 'black',
+                    alignItems: 'center',
+                    marginHorizontal: 10,
+                  }}
+                  searchTextInputStyle={{
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    paddingLeft: 20,
+                  }}
+                  disableBorderRadius={true}
+                  dropDownContainerStyle={{
+                    borderRadius: 25,
+                    borderWidth: 0,
+                    maxHeight: 180,
+                    position: 'relative',
+                    top: 0,
+                  }}
+                  listItemLabelStyle={{
+                    marginLeft: 20,
+                  }}
+                />
+              </View>
+              <View className="flex-auto  justify-center">
+                <View className="bg-white rounded-[25px] flex-row items-center">
+                  <View className="pl-4">
+                    <Ionicons
+                      name="location-outline"
+                      size={20}
+                      className="text-[#6b7280]"
+                    />
+                  </View>
 
-          <View className="flex-auto justify-center my-12">
-            <Btn
-              textClassName="py-3"
-              disabled={location == null}
-              onBook={handleBook}>
-              Chercher un spécialiste
-            </Btn>
+                  <TextInput
+                    editable={valueLocation !== null}
+                    className="p-2.5 flex-auto"
+                    onChangeText={setLocation}
+                    value={location}
+                    placeholder="Choisissez le lieu de l'intervention"
+                    placeholderTextColor={'#6b7280'}
+                  />
+                </View>
+              </View>
+
+              <View className="flex-auto justify-center my-12">
+                <Btn
+                  textClassName="py-3"
+                  disabled={searchText == null || searchText == ''}
+                  onBook={handleBook}>
+                  Chercher un spécialiste
+                </Btn>
+              </View>
+            </ScrollView>
           </View>
         </View>
       </View>
