@@ -31,7 +31,6 @@ const LoginScreen = () => {
 
       if (response.status === 200 || response.status === 201) {
         await AsyncStorage.setItem('token', token);
-        Alert.alert('Login successful', 'You are now logged in');
         navigation.replace('HomeScreen');
 
         //expiration du token après 10s

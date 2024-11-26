@@ -38,8 +38,8 @@ const ModalServices = ({
 
   const [location, setLocation] = useState(null);
 
-  const [openLocation, setOpenLocation] = useState(false);
-  const [valueLocation, setValueLocation] = useState(null);
+  const [openCity, setOpenCity] = useState(false);
+  const [valueCity, setValueCity] = useState(null);
   const [itemsCity, setItemsCity] = useState([]);
   // const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState(null);
@@ -92,11 +92,11 @@ const ModalServices = ({
   //   fetchLocation();
   // }, [searchText]);
 
-  console.log(searchText);
+  // console.log(searchText);
   const handleBook = () => {
     onRequestClose();
     navigation.navigate('CompanySearchScreen.js');
-    console.log(value, valueTr, location);
+    console.log(value, valueTr, valueCity, location);
   };
 
   return (
@@ -240,11 +240,11 @@ const ModalServices = ({
                     setSearchText(text);
                   }}
                   disabled={valueTr == null}
-                  open={openLocation}
-                  value={valueLocation}
+                  open={openCity}
+                  value={valueCity}
                   items={itemsCity}
-                  setOpen={setOpenLocation}
-                  setValue={setValueLocation}
+                  setOpen={setOpenCity}
+                  setValue={setValueCity}
                   setItems={setItemsCity}
                   placeholder="Entrez la ville de l'intervention"
                   placeholderStyle={{color: '#6b7280'}}
@@ -289,11 +289,11 @@ const ModalServices = ({
                   </View>
 
                   <TextInput
-                    editable={valueLocation !== null}
+                    editable={valueCity !== null}
                     className="p-2.5 flex-auto"
                     onChangeText={setLocation}
                     value={location}
-                    placeholder="Choisissez le lieu de l'intervention"
+                    placeholder="Entrez le lieu de l'intervention"
                     placeholderTextColor={'#6b7280'}
                   />
                 </View>
@@ -302,7 +302,7 @@ const ModalServices = ({
               <View className="flex-auto justify-center my-12">
                 <Btn
                   textClassName="py-3"
-                  disabled={searchText == null || searchText == ''}
+                  // disabled={location == null || location == ''}
                   onBook={handleBook}>
                   Chercher un spécialiste
                 </Btn>
