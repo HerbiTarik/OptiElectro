@@ -13,6 +13,11 @@ const Services = {
     );
     return res.rows;
   },
+
+  getCities: async () => {
+    const res = await pool.query('select * from ville');
+    return res.rows;
+  },
 };
 
 module.exports = Services;

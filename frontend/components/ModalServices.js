@@ -78,21 +78,23 @@ const ModalServices = ({
     fetchActivites();
   }, [value]);
 
-  // useEffect(() => {
-  //   const fetchLocation = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://neutrinoapi.net/geocode-address?user-id=herbitarik&api-key=zpDj2WNetWDYe0HgdSKOPatwODjTxWkdNA1UvkZcwA4monS8&address=${searchText}&country-code=FR&language=fr&fuzzy=true`,
-  //       );
-  //       console.log(response.data.locations);
-  //     } catch (error) {
-  //       console.error('Erreur', error);
-  //     }
-  //   };
-  //   fetchLocation();
-  // }, [searchText]);
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get('http://10.0.2.2:3000/api/villes');
+        const fetchedCities = response.data.map(city => ({
+          label: city.nom,
+          value: city.id,
+        }));
+        setItemsCity(fetchedCities);
+      } catch (error) {
+        console.error('Erreur: ', error);
+      }
+    };
+    fetchCities();
+  }, []);
+  console.log(valueCity);
 
-  // console.log(searchText);
   const handleBook = () => {
     onRequestClose();
     navigation.navigate('CompanySearchScreen.js');
@@ -235,7 +237,6 @@ const ModalServices = ({
                   className="rounded-[25px] flex-auto border-0 pl-5"
                   listMode="SCROLLVIEW"
                   loading={searchText == null}
-                  disableLocalSearch={true}
                   onChangeSearchText={text => {
                     setSearchText(text);
                   }}
@@ -302,7 +303,7 @@ const ModalServices = ({
               <View className="flex-auto justify-center my-12">
                 <Btn
                   textClassName="py-3"
-                  // disabled={location == null || location == ''}
+                  disabled={location == null || location == ''}
                   onBook={handleBook}>
                   Chercher un spécialiste
                 </Btn>

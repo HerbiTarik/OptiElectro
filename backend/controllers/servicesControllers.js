@@ -22,6 +22,15 @@ const ServicesControllers = {
       res.status(500).json({error: error.message});
     }
   },
+  getCity: async (req, res) => {
+    try {
+      const villes = await Services.getCities();
+      res.status(200).json(villes);
+    } catch (error) {
+      console.error('Erreur: ', error);
+      res.status(500).json({error: error.message});
+    }
+  },
 };
 
 module.exports = ServicesControllers;
