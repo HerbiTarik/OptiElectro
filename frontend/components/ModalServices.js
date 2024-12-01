@@ -93,7 +93,6 @@ const ModalServices = ({
     };
     fetchCities();
   }, []);
-  console.log(valueCity);
 
   const handleBook = () => {
     onRequestClose();
@@ -305,7 +304,7 @@ const ModalServices = ({
                   textClassName="py-3"
                   disabled={location == null || location == ''}
                   onBook={handleBook}>
-                  Chercher un spécialiste
+                  Chercher une entreprise
                 </Btn>
               </View>
             </ScrollView>
