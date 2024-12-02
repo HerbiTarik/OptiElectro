@@ -10,15 +10,6 @@ const CompaniesControllers = {
       res.status(500).json({error: error.message});
     }
   },
-  getCityController: async (req, res) => {
-    const city = await companies.getCity(req.params.id);
-    res.status(200).json(city);
-    try {
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({error: error.message});
-    }
-  },
 };
 
 module.exports = CompaniesControllers;

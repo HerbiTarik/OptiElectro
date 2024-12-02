@@ -7,10 +7,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 
 const CompanySearchScreen = () => {
-  const [rating, setRating] = useState(3.5);
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [rating, setRating] = useState();
   const [data, setData] = useState();
-  const [city, setCity] = useState();
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -25,10 +23,6 @@ const CompanySearchScreen = () => {
     fetchCompanies();
   }, []);
 
-  // const cities = await axios.get(
-  //   `http://10.0.2.2:3000/api/city/${response.data.city}`,
-  // );
-  //  setCity(cities.data);
   return (
     <View className="flex-1 bg-fond">
       <FlatList
@@ -84,27 +78,31 @@ const CompanySearchScreen = () => {
                     color="#0f172a"
                   />
                   <Text className=" text-text2 pl-2">
-                    <Text className="font-bold">Intervention moyenne </Text>: 2
-                    jours
+                    <Text className="font-bold">Intervention moyenne </Text>:{' '}
+                    {item.duree_intervention} jours
                   </Text>
                 </View>
                 <View className="flex-row items-center my-2 ">
                   <Ionicons name="cash-outline" size={16} color="#0f172a" />
                   <Text className=" text-text2 pl-2">
-                    <Text className="font-bold ">Tarifs</Text> : 100 - 300 €
+                    <Text className="font-bold ">Tarifs</Text> :{' '}
+                    {item.tarif_min} - {item.tarif_max} €
                   </Text>
                 </View>
                 <View className="flex-row items-center my-2 ">
                   <MaterialIcons name="done" size={16} color="#0f172a" />
                   <Text className="text-text2 pl-2">
-                    Certifié RGE / Partenaire Schneider Electric
+                    Certifié {item.certification} / Partenaire {item.partenaire}
                   </Text>
                 </View>
                 <View className="bg-primary py-5 rounded-[10px] justify-center items-center mt-3">
                   <Text className="text-txt font-bold mb-2">
                     Prochaine disponibilté
                   </Text>
-                  <Text className="text-btnColor "> 20 novembre 2024</Text>
+                  <Text className="text-btnColor ">
+                    {' '}
+                    {item.prochaine_disponibilite}
+                  </Text>
                 </View>
               </View>
             </View>
