@@ -27,6 +27,7 @@ import {Picker} from '@react-native-picker/picker';
 import contraints from '../validationForm/validationUpdateData';
 import {validate} from 'validate.js';
 import Svg, {Rect} from 'react-native-svg';
+// import RecupDataUser from '../components/RecupDataUser';
 
 const Profile = () => {
   const {width} = Dimensions.get('window');
@@ -44,6 +45,8 @@ const Profile = () => {
   const [selectedValue, setSelectedValue] = useState(null);
   const [errors, setErrors] = useState({});
   const [tokenDecode, setTokenDecode] = useState(null);
+
+  // const {userData} = RecupDataUser();
 
   useEffect(() => {
     const recupToken = async () => {
@@ -70,7 +73,7 @@ const Profile = () => {
           const response = await axios.get(
             `http://10.0.2.2:3000/api/users/email/${email}`,
           );
-          // console.log(response.data);
+          console.log(response.data.id);
           setUserData(response.data);
         } catch (error) {
           console.error('Erreur', error);
@@ -79,6 +82,7 @@ const Profile = () => {
     };
     fetchData();
   }, [tokenDecode]);
+
   // const convertImageToBase64 = async uri => {
   //   const base64Image = await RNFS.readFile(uri, 'base64');
   //   return base64Image;

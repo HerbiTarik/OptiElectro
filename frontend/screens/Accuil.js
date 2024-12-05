@@ -16,6 +16,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import Svg, {Circle} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import ModalServices from '../components/ModalServices';
+import RecupDataUser from '../components/RecupDataUser';
 
 const data = [
   {
@@ -47,6 +48,9 @@ const Accuil = () => {
 
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
+  // const {userData} = RecupDataUser();
+
+  // console.log(userData);
 
   handlePress = () => {
     // navigation.navigate('ServicesScreen');

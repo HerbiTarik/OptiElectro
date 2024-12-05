@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/userControllers');
 const ServicesControllers = require('../controllers/servicesControllers');
 const CompaniesControllers = require('../controllers/companyController');
+const bookingControllers = require('../controllers/bookingController');
 
 router.get('/users/id/:id', userController.getUserById);
 router.get('/users/email/:email', userController.getUserByEmail);
@@ -13,6 +14,7 @@ router.put('/users/image', userController.AddImage);
 router.get('/services', ServicesControllers.getServicesController);
 router.get('/villes', ServicesControllers.getCity);
 router.get('/companies', CompaniesControllers.getCompaniesController);
+router.post('/booking/activites', bookingControllers.setBookingControllers);
 router.get('/activites/:id', ServicesControllers.getTypesIntervention);
 
 router.get('/users', userController.getAllUsers); // il faut mettre le chemin racine en dernier
