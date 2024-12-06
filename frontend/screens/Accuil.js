@@ -17,6 +17,7 @@ import Svg, {Circle} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import ModalServices from '../components/ModalServices';
 import RecupDataUser from '../components/RecupDataUser';
+import {useSelector} from 'react-redux';
 
 const data = [
   {
@@ -42,6 +43,7 @@ const data = [
 ];
 
 const Accuil = () => {
+  const user = useSelector(state => state.user);
   const [modalVisible, setModalVisible] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const navigation = useNavigation();
@@ -56,6 +58,10 @@ const Accuil = () => {
     // navigation.navigate('ServicesScreen');
     setModalVisible(true);
   };
+
+  console.log(user.id);
+  console.log(user.first_name);
+  console.log(user.last_name);
 
   return (
     <View className="flex-1 bg-fond">
@@ -128,7 +134,6 @@ const Accuil = () => {
                   // width: width * 0.7,
                   // height: 150,
                   borderRadius: 15,
-                  // backgroundColor: '#fffbeb',
                   shadowColor: '#000',
                   shadowOffset: {width: 0, height: 4},
                   shadowOpacity: 0.8,
