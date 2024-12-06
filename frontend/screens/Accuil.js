@@ -59,7 +59,7 @@ const Accuil = () => {
     setModalVisible(true);
   };
 
-  console.log(user.id);
+  console.log('id: ', user.id);
   console.log(user.first_name);
   console.log(user.last_name);
 

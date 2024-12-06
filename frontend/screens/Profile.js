@@ -48,6 +48,7 @@ const Profile = () => {
   const [errors, setErrors] = useState({});
   const [tokenDecode, setTokenDecode] = useState(null);
   const [dataForDispatch, setDataForDispatch] = useState({});
+  const [dataUpdatedForDispatch, setDataUpdatedForDispatch] = useState({});
 
   // const {userData} = RecupDataUser();
 
@@ -58,7 +59,6 @@ const Profile = () => {
         if (token !== null) {
           const decodeToken = jwtDecode(token);
           setTokenDecode(decodeToken);
-          // console.log(decodeToken);
         }
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
@@ -79,16 +79,19 @@ const Profile = () => {
           setUserData(response.data);
           const {id, first_name, last_name} = response.data;
           setDataForDispatch({id, first_name, last_name});
-          dispatch(setUser(dataForDispatch));
         } catch (error) {
           console.error('Erreur', error);
         }
       }
     };
+
     fetchData();
   }, [tokenDecode]);
 
-  console.log(dataForDispatch);
+  useEffect(() => {
+    dispatch(setUser(dataForDispatch));
+  }, [dataForDispatch]);
+
   // const convertImageToBase64 = async uri => {
   //   const base64Image = await RNFS.readFile(uri, 'base64');
   //   return base64Image;
@@ -126,6 +129,9 @@ const Profile = () => {
       );
       if (response.status === 201 || response.status === 200) {
         Alert.alert('Add details', 'details successfully updated');
+        const {id, first_name, last_name} = response.data.updatedData;
+        setDataUpdatedForDispatch({id, first_name, last_name});
+        dispatch(setUser(dataUpdatedForDispatch));
       } else {
         Alert.alert('failed to update details');
       }
@@ -133,6 +139,10 @@ const Profile = () => {
       console.log('ERROR', error);
     }
   };
+
+  useEffect(() => {
+    dispatch(setUser(dataUpdatedForDispatch));
+  }, [dataUpdatedForDispatch]);
 
   // const addImage = async () => {
   //   const data = {
