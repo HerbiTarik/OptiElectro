@@ -18,6 +18,16 @@ const bookingControllers = {
       res.status(500).json({error: error.message});
     }
   },
+  deleteBookingtempControllers: async (req, res) => {
+    const {id} = req.params;
+    try {
+      const response = await booking.deleteBookingtemp(id);
+      res.status(200).json(response);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({error: error.message});
+    }
+  },
 };
 
 module.exports = bookingControllers;

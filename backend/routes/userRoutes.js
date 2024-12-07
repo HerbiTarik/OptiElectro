@@ -15,6 +15,10 @@ router.get('/services', ServicesControllers.getServicesController);
 router.get('/villes', ServicesControllers.getCity);
 router.get('/companies', CompaniesControllers.getCompaniesController);
 router.post('/booking/activites', bookingControllers.setBookingControllers);
+router.delete(
+  '/deleteBooking/:id',
+  bookingControllers.deleteBookingtempControllers,
+);
 router.get('/activites/:id', ServicesControllers.getTypesIntervention);
 
 router.get('/users', userController.getAllUsers); // il faut mettre le chemin racine en dernier

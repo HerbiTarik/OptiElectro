@@ -15,6 +15,9 @@ import axios from 'axios';
 import 'react-native-get-random-values';
 import Btn from './Btn';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {setBookings} from '../reduxConf/bookingSlice';
 
 const ModalServices = ({
   onRequestClose,
@@ -23,7 +26,11 @@ const ModalServices = ({
   isPressedModal,
   visibleModal,
 }) => {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+
   const navigation = useNavigation();
+  const [idBooking, setIdBooking] = useState({});
 
   const {height} = Dimensions.get('window');
   const {width} = Dimensions.get('window');
@@ -94,11 +101,40 @@ const ModalServices = ({
     fetchCities();
   }, []);
 
-  const handleBook = () => {
+  const handleBook = async () => {
+    const dataActivites = {
+      id_user: user.id,
+      id_activite: value,
+      id_type_activite: valueTr,
+      id_ville: valueCity,
+      location: location,
+    };
     onRequestClose();
-    navigation.navigate('CompanySearchScreen.js');
-    console.log(value, valueTr, valueCity, location);
+
+    try {
+      const response = await axios.post(
+        'http://10.0.2.2:3000/api/booking/activites',
+        dataActivites,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      if (response.status === 200 || response.status === 201) {
+        const {id} = response.data;
+        console.log(response.data);
+        setIdBooking({id});
+        navigation.navigate('CompanySearchScreen');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    dispatch(setBookings(idBooking));
+  }, [idBooking]);
 
   return (
     <Modal

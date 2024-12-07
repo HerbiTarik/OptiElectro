@@ -50,12 +50,8 @@ const Accuil = () => {
 
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
-  // const {userData} = RecupDataUser();
-
-  // console.log(userData);
 
   handlePress = () => {
-    // navigation.navigate('ServicesScreen');
     setModalVisible(true);
   };
 

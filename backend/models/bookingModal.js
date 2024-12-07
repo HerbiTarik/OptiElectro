@@ -14,6 +14,10 @@ const booking = {
     );
     return res.rows[0];
   },
+  deleteBookingtemp: async id => {
+    const res = await pool.query('delete from booking where id= $1', [id]);
+    res.rows[0];
+  },
 };
 
 module.exports = booking;
