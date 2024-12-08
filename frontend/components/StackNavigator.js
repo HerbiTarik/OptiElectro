@@ -4,15 +4,35 @@ import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
 import StartedScreen from '../screens/StartedScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CompanySearchScreen from '../screens/CompanySearchScreen';
 import {Pressable} from 'react-native';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {removeBookings} from '../reduxConf/bookingSlice';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
-  const backhundler = () => {};
+  const booking = useSelector(state => state.booking);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const backhundler = async () => {
+    try {
+      const res = await axios.delete(
+        `http://10.0.2.2:3000/api/deleteBooking/${booking.id}`,
+      );
+      if (res.status === 200 || res.status === 201) {
+        dispatch(removeBookings());
+        navigation.goBack();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Stack.Navigator
