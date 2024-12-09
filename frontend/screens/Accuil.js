@@ -55,10 +55,6 @@ const Accuil = () => {
     setModalVisible(true);
   };
 
-  console.log('id: ', user.id);
-  console.log(user.first_name);
-  console.log(user.last_name);
-
   return (
     <View className="flex-1 bg-fond">
       <View className="absolute">

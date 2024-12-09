@@ -5,8 +5,16 @@ import StarRating from 'react-native-star-rating-widget';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {removeBookings} from '../reduxConf/bookingSlice';
 
 const CompanySearchScreen = () => {
+  const booking = useSelector(state => state.booking);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const [rating, setRating] = useState();
   const [data, setData] = useState();
 
@@ -22,6 +30,33 @@ const CompanySearchScreen = () => {
     };
     fetchCompanies();
   }, []);
+
+  const bookingHandle = async idComp => {
+    const {id} = booking;
+
+    const data = {
+      id_entreprise: idComp,
+    };
+
+    try {
+      const res = await axios.put(
+        `http://10.0.2.2:3000/api/bookingCompany/${id}`,
+        data,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      if (res.status === 200) {
+        dispatch(removeBookings());
+        navigation.navigate('Accuil');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <View className="flex-1 bg-fond mt-3">
@@ -106,11 +141,11 @@ const CompanySearchScreen = () => {
                   <Text className="text-text2">En savoir plus</Text>
                 </Pressable>
               </View>
-              <View className="bg-btnColor p-3 rounded-lg">
-                <Pressable>
+              <Pressable onPress={() => bookingHandle(item.id)}>
+                <View className="bg-btnColor p-3 rounded-lg">
                   <Text className="text-text2">Prendre rendez-vous</Text>
-                </Pressable>
-              </View>
+                </View>
+              </Pressable>
             </View>
           </View>
         )}

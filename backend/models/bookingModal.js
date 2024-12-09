@@ -14,9 +14,16 @@ const booking = {
     );
     return res.rows[0];
   },
+
+  updateCompany: async (id, id_entreprise) => {
+    const res = await pool.query(
+      `update booking set id_entreprise = ${id_entreprise} where id = ${id} RETURNING *`,
+    );
+    return res.rows[0];
+  },
   deleteBookingtemp: async id => {
     const res = await pool.query('delete from booking where id= $1', [id]);
-    res.rows[0];
+    return res.rows[0];
   },
 };
 

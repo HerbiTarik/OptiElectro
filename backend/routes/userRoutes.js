@@ -19,6 +19,10 @@ router.delete(
   '/deleteBooking/:id',
   bookingControllers.deleteBookingtempControllers,
 );
+router.put(
+  '/bookingCompany/:id',
+  bookingControllers.addBookingCompanyControllers,
+);
 router.get('/activites/:id', ServicesControllers.getTypesIntervention);
 
 router.get('/users', userController.getAllUsers); // il faut mettre le chemin racine en dernier

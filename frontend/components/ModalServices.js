@@ -123,7 +123,6 @@ const ModalServices = ({
       );
       if (response.status === 200 || response.status === 201) {
         const {id} = response.data;
-        console.log(response.data);
         setIdBooking({id});
         navigation.navigate('CompanySearchScreen');
       }
