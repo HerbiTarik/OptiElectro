@@ -5,6 +5,8 @@ import {
   ImageBackground,
   Pressable,
   KeyboardAvoidingView,
+  FlatList,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -55,8 +57,10 @@ const Accuil = () => {
     setModalVisible(true);
   };
 
+  console.log(user.id);
+
   return (
-    <View className="flex-1 bg-fond">
+    <ScrollView contentContainerStyle={{flex: 1, backgroundColor: '#f3f4f6'}}>
       <View className="absolute">
         <Svg height={height} width={width} viewBox="0 0 100 100">
           <Circle cx="75" cy="-38" r="100" fill="#0284c7" />
@@ -102,7 +106,7 @@ const Accuil = () => {
         </View>
       </Pressable>
 
-      <View className="flex-auto ">
+      <View className="flex-auto">
         <Carousel
           className="flex-auto"
           loop
@@ -162,7 +166,13 @@ const Accuil = () => {
           )}
         />
       </View>
-    </View>
+      <View className="flex-auto mx-5 mt-5 items-center">
+        <Text className="text-text2 text-[20px] font-bold flex-auto">
+          Mes travaux à venir
+        </Text>
+        <View className="bg-slate-500"></View>
+      </View>
+    </ScrollView>
   );
 };
 
