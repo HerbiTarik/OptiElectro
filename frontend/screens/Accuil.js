@@ -44,6 +44,15 @@ const data = [
   },
 ];
 
+const donnees = [
+  {id: 1, name: 'banane'},
+  {id: 2, name: 'pomme'},
+  {
+    id: 3,
+    name: 'oignon',
+  },
+];
+
 const Accuil = () => {
   const user = useSelector(state => state.user);
   const [modalVisible, setModalVisible] = useState(false);
@@ -106,9 +115,8 @@ const Accuil = () => {
         </View>
       </Pressable>
 
-      <View className="flex-auto">
+      <View className="h-[170px]">
         <Carousel
-          className="flex-auto"
           loop
           mode="parallax"
           modeConfig={{
@@ -166,11 +174,21 @@ const Accuil = () => {
           )}
         />
       </View>
-      <View className="flex-auto mx-5 mt-5 items-center">
-        <Text className="text-text2 text-[20px] font-bold flex-auto">
+
+      <View className="mt-5 items-center">
+        <Text className="text-text2 text-[20px] font-bold">
           Mes travaux à venir
         </Text>
-        <View className="bg-slate-500"></View>
+      </View>
+      <View className="bg-slate-500">
+        <Text>
+          <FlatList
+            data={donnees}
+            horizontal
+            renderItem={({item}) => <Text>{item.name}</Text>}
+            keyExtractor={item => item.id}
+          />
+        </Text>
       </View>
     </ScrollView>
   );
