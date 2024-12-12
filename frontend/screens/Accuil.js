@@ -79,7 +79,7 @@ const Accuil = () => {
   return (
     <ScrollView
       style={{flex: 1}}
-      contentContainerStyle={{flex: 1, backgroundColor: '#f3f4f6'}}>
+      contentContainerStyle={{backgroundColor: '#f3f4f6'}}>
       <View className="absolute">
         <Svg height={height} width={width} viewBox="0 0 100 100">
           <Circle cx="75" cy="-38" r="100" fill="#0284c7" />
@@ -190,14 +190,15 @@ const Accuil = () => {
           Mes travaux à venir
         </Text>
       </View>
-      <View className="my-5">
+      <View className="my-5 ml-5">
         <FlatList
           data={bookingInfo}
           horizontal
+          showsHorizontalScrollIndicator={false}
           renderItem={({item}) => (
             <View
               style={{width: width * 0.8}}
-              className="m-2 bg-slate-500 p-3 h-[150px]">
+              className="m-3 p-3 h-[170px] rounded-xl border-[0.5px]">
               <Text>{item.denomination}</Text>
             </View>
           )}
