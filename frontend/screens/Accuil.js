@@ -4,11 +4,10 @@ import {
   Dimensions,
   ImageBackground,
   Pressable,
-  KeyboardAvoidingView,
   FlatList,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import fibre_optique from '../assets/fibre_optique_slide.png';
 import installation_electrique from '../assets/installation_electrique_slide.png';
@@ -18,8 +17,8 @@ import Carousel from 'react-native-reanimated-carousel';
 import Svg, {Circle} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import ModalServices from '../components/ModalServices';
-import RecupDataUser from '../components/RecupDataUser';
 import {useSelector} from 'react-redux';
+import axios from 'axios';
 
 const data = [
   {
@@ -44,20 +43,12 @@ const data = [
   },
 ];
 
-const donnees = [
-  {id: 1, name: 'banane'},
-  {id: 2, name: 'pomme'},
-  {
-    id: 3,
-    name: 'oignon',
-  },
-];
-
 const Accuil = () => {
   const user = useSelector(state => state.user);
   const [modalVisible, setModalVisible] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const navigation = useNavigation();
+  const [bookingInfo, setBookingInfo] = useState({});
 
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
@@ -66,10 +57,29 @@ const Accuil = () => {
     setModalVisible(true);
   };
 
-  console.log(user.id);
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const {id} = user;
+
+      try {
+        const response = await axios.get(
+          `http://10.0.2.2:3000/api/myBookings/${id}`,
+        );
+        if (response.status === 200) {
+          setBookingInfo(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchBookings();
+  }, []);
 
   return (
-    <ScrollView contentContainerStyle={{flex: 1, backgroundColor: '#f3f4f6'}}>
+    <ScrollView
+      style={{flex: 1}}
+      contentContainerStyle={{flex: 1, backgroundColor: '#f3f4f6'}}>
       <View className="absolute">
         <Svg height={height} width={width} viewBox="0 0 100 100">
           <Circle cx="75" cy="-38" r="100" fill="#0284c7" />
@@ -180,15 +190,19 @@ const Accuil = () => {
           Mes travaux à venir
         </Text>
       </View>
-      <View className="bg-slate-500">
-        <Text>
-          <FlatList
-            data={donnees}
-            horizontal
-            renderItem={({item}) => <Text>{item.name}</Text>}
-            keyExtractor={item => item.id}
-          />
-        </Text>
+      <View className="my-5">
+        <FlatList
+          data={bookingInfo}
+          horizontal
+          renderItem={({item}) => (
+            <View
+              style={{width: width * 0.8}}
+              className="m-2 bg-slate-500 p-3 h-[150px]">
+              <Text>{item.denomination}</Text>
+            </View>
+          )}
+          keyExtractor={item => item.id}
+        />
       </View>
     </ScrollView>
   );

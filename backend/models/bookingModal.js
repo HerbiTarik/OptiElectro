@@ -25,6 +25,13 @@ const booking = {
     const res = await pool.query('delete from booking where id= $1', [id]);
     return res.rows[0];
   },
+  getReservation: async id => {
+    const res = await pool.query(
+      'select t1.id, t1.location, t2.nom, t3.nom, t4.nom, t5.logo, t5.denomination, t5.prochaine_disponibilite, t5.activite_principale from booking as t1 inner join type_activite as t2 on t1.id_activite = t2.id inner join activites as t3 on t1.id_type_activite = t3.id inner join ville as t4 on t1.id_ville = t4.id inner join entreprise as t5 on t1.id_entreprise = t5.id where t1.id_user = $1',
+      [id],
+    );
+    return res.rows;
+  },
 };
 
 module.exports = booking;
