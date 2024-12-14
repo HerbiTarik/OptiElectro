@@ -6,6 +6,7 @@ import {
   Pressable,
   FlatList,
   ScrollView,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -75,6 +76,8 @@ const Accuil = () => {
 
     fetchBookings();
   }, []);
+
+  console.log(bookingInfo);
 
   return (
     <ScrollView
@@ -185,21 +188,80 @@ const Accuil = () => {
         />
       </View>
 
-      <View className="mt-5 items-center">
+      <View className="mt-8 items-center">
         <Text className="text-text2 text-[20px] font-bold">
           Mes travaux à venir
         </Text>
       </View>
-      <View className="my-5 ml-5">
+      <View className="my-8">
         <FlatList
           data={bookingInfo}
           horizontal
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => (
             <View
-              style={{width: width * 0.8}}
-              className="m-3 p-3 h-[170px] rounded-xl border-[0.5px]">
-              <Text>{item.denomination}</Text>
+              style={{width: width * 0.8, height: height * 0.32}}
+              className=" mx-5 h-[230px] rounded-xl border-[0.5px] overflow-hidden flex-1">
+              <View className="bg-primary  w-[100%] h-[40px] flex-row items-center ">
+                <Ionicons
+                  name="calendar-outline"
+                  size={20}
+                  color="white"
+                  style={{marginLeft: 8}}
+                />
+                <Text className=" text-txt ml-2">
+                  {item.prochaine_disponibilite}
+                </Text>
+              </View>
+              <View className="p-3">
+                <View className="flex-row items-center">
+                  <Image
+                    source={{uri: item.logo}}
+                    style={{
+                      resizeMode: 'cover',
+                      width: 42,
+                      height: 42,
+                      borderRadius: 50,
+                      borderWidth: 0.5,
+                      borderColor: 'black',
+                    }}
+                  />
+                  <Text className="text-text2 font-bold ml-3">
+                    {item.denomination}
+                  </Text>
+                </View>
+                <View className="flex-row mt-4 ml-2">
+                  <Ionicons name="build-outline" size={20} color="black" />
+
+                  <Text className="mx-2 text-text2 leading-4" numberOfLines={2}>
+                    {item.activites}
+                  </Text>
+                </View>
+                <View className="flex-row my-3 ml-2 items-center">
+                  <Ionicons name="pin-sharp" size={20} color="black" />
+
+                  <Text className="mx-2 text-text2 leading-4" numberOfLines={2}>
+                    {item.location} {', '}
+                    {item.ville}
+                  </Text>
+                </View>
+                <View className=" flex-row justify-between">
+                  <Pressable>
+                    <View
+                      style={{width: width * 0.35}}
+                      className="bg-btnColor py-3 justify-center items-center rounded-lg">
+                      <Text className="font-bold text-text2">Changer RDV</Text>
+                    </View>
+                  </Pressable>
+                  <Pressable>
+                    <View
+                      style={{width: width * 0.35}}
+                      className="bg-[#e11d48] p-3 justify-center items-center rounded-lg">
+                      <Text className="font-bold text-txt">Annuler RDV</Text>
+                    </View>
+                  </Pressable>
+                </View>
+              </View>
             </View>
           )}
           keyExtractor={item => item.id}
