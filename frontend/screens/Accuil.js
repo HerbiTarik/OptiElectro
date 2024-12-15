@@ -46,10 +46,14 @@ const data = [
 
 const Accuil = () => {
   const user = useSelector(state => state.user);
+  const booking = useSelector(state => state.booking);
   const [modalVisible, setModalVisible] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const navigation = useNavigation();
   const [bookingInfo, setBookingInfo] = useState({});
+  const [bookingTemp, setBookingTemp] = useState();
+
+  const isEmptyObject = obj => Object.keys(obj).length === 0;
 
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
@@ -75,9 +79,9 @@ const Accuil = () => {
     };
 
     fetchBookings();
-  }, []);
+  }, [booking]);
 
-  console.log(bookingInfo);
+  console.log(booking);
 
   return (
     <ScrollView
@@ -130,7 +134,7 @@ const Accuil = () => {
 
       <View className="h-[170px]">
         <Carousel
-          loop
+          // loop
           mode="parallax"
           modeConfig={{
             parallaxScrollingScale: 1,
@@ -145,7 +149,6 @@ const Accuil = () => {
           scrollAnimationDuration={3000}
           renderItem={({item}) => (
             <View className="items-center justify-center">
-              {/* <Text className="text-lg p-3">{item.title}</Text> */}
               <View
                 style={{
                   // width: width * 0.7,
@@ -193,80 +196,102 @@ const Accuil = () => {
           Mes travaux à venir
         </Text>
       </View>
-      <View className="my-8">
-        <FlatList
-          data={bookingInfo}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => (
-            <View
-              style={{width: width * 0.8, height: height * 0.32}}
-              className=" mx-5 h-[230px] rounded-xl border-[0.5px] overflow-hidden flex-1">
-              <View className="bg-primary  w-[100%] h-[40px] flex-row items-center ">
-                <Ionicons
-                  name="calendar-outline"
-                  size={20}
-                  color="white"
-                  style={{marginLeft: 8}}
-                />
-                <Text className=" text-txt ml-2">
-                  {item.prochaine_disponibilite}
-                </Text>
-              </View>
-              <View className="p-3">
-                <View className="flex-row items-center">
-                  <Image
-                    source={{uri: item.logo}}
-                    style={{
-                      resizeMode: 'cover',
-                      width: 42,
-                      height: 42,
-                      borderRadius: 50,
-                      borderWidth: 0.5,
-                      borderColor: 'black',
-                    }}
-                  />
-                  <Text className="text-text2 font-bold ml-3">
-                    {item.denomination}
-                  </Text>
-                </View>
-                <View className="flex-row mt-4 ml-2">
-                  <Ionicons name="build-outline" size={20} color="black" />
-
-                  <Text className="mx-2 text-text2 leading-4" numberOfLines={2}>
-                    {item.activites}
-                  </Text>
-                </View>
-                <View className="flex-row my-3 ml-2 items-center">
-                  <Ionicons name="pin-sharp" size={20} color="black" />
-
-                  <Text className="mx-2 text-text2 leading-4" numberOfLines={2}>
-                    {item.location} {', '}
-                    {item.ville}
-                  </Text>
-                </View>
-                <View className=" flex-row justify-between">
-                  <Pressable>
-                    <View
-                      style={{width: width * 0.35}}
-                      className="bg-btnColor py-3 justify-center items-center rounded-lg">
-                      <Text className="font-bold text-text2">Changer RDV</Text>
+      {isEmptyObject(bookingInfo) ? (
+        <View className="justify-center items-center my-10">
+          <Text className="text-gray-500">Pas de travaux planifiés </Text>
+        </View>
+      ) : (
+        <View className="my-8">
+          <FlatList
+            data={bookingInfo}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) => (
+              <View
+                style={{width: width * 0.8, height: height * 0.3}}
+                className=" mx-5 h-[230px] rounded-xl border-[0.5px] overflow-hidden">
+                <View className="flex-1">
+                  <View className=" bg-primary  w-[100%] flex-row items-center flex-[2]">
+                    <Ionicons
+                      name="calendar-outline"
+                      size={20}
+                      color="white"
+                      style={{marginLeft: 8}}
+                    />
+                    <Text className=" text-txt ml-2">
+                      {item.prochaine_disponibilite}
+                    </Text>
+                  </View>
+                  <View className="flex-[8] p-3">
+                    <View className="flex-row items-center flex-auto ">
+                      <Image
+                        source={{uri: item.logo}}
+                        style={{
+                          resizeMode: 'cover',
+                          width: 42,
+                          height: 42,
+                          borderRadius: 50,
+                          borderWidth: 0.5,
+                          borderColor: 'black',
+                        }}
+                      />
+                      <Text className="text-text2 font-bold ml-3">
+                        {item.denomination}
+                      </Text>
                     </View>
-                  </Pressable>
-                  <Pressable>
-                    <View
-                      style={{width: width * 0.35}}
-                      className="bg-[#e11d48] p-3 justify-center items-center rounded-lg">
-                      <Text className="font-bold text-txt">Annuler RDV</Text>
+                    <View className="flex-auto justify-center">
+                      <View className="flex-row mt-4 ml-2 mr-2">
+                        <Ionicons
+                          name="build-outline"
+                          size={20}
+                          color="black"
+                        />
+
+                        <Text
+                          className="mx-2 text-text2 leading-4"
+                          numberOfLines={1}>
+                          {item.activites}
+                        </Text>
+                      </View>
+                      <View className="flex-row my-3 ml-2 items-center">
+                        <Ionicons name="pin-sharp" size={20} color="black" />
+
+                        <Text
+                          className="mx-2 text-text2 leading-4"
+                          numberOfLines={1}>
+                          {item.location} {', '}
+                          {item.ville}
+                        </Text>
+                      </View>
                     </View>
-                  </Pressable>
+                    <View className=" flex-row justify-between  flex-auto items-end ">
+                      <Pressable>
+                        <View
+                          style={{width: width * 0.35}}
+                          className="bg-btnColor py-3 justify-center items-center rounded-lg">
+                          <Text className="font-bold text-text2">
+                            Changer RDV
+                          </Text>
+                        </View>
+                      </Pressable>
+                      <Pressable>
+                        <View
+                          style={{width: width * 0.35}}
+                          className="bg-[#e11d48] p-3 justify-center items-center rounded-lg">
+                          <Text className="font-bold text-txt">
+                            Annuler RDV
+                          </Text>
+                        </View>
+                      </Pressable>
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
-          keyExtractor={item => item.id}
-        />
-      </View>
+            )}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      )}
     </ScrollView>
   );
 };
