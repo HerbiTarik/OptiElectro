@@ -131,7 +131,7 @@ const Profile = () => {
         Alert.alert('Add details', 'details successfully updated');
         const {id, first_name, last_name} = response.data.updatedData;
         setDataUpdatedForDispatch({id, first_name, last_name});
-        dispatch(setUser(dataUpdatedForDispatch));
+        // dispatch(setUser(dataUpdatedForDispatch));
       } else {
         Alert.alert('failed to update details');
       }

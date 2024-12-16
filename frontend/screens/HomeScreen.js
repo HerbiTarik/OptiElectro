@@ -44,7 +44,17 @@ const HomeScreen = () => {
       })}
       initialRouteName="Profile">
       <Tab.Screen name="Accuil" component={Accuil} />
-      <Tab.Screen name="Booking" component={Booking} />
+      <Tab.Screen
+        name="Booking"
+        component={Booking}
+        options={{
+          headerShown: true,
+          title: 'Réservations',
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: '#0284c7'},
+          headerTitleAlign: 'center',
+        }}
+      />
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Message" component={Message} />
       <Tab.Screen name="Settings" component={Settings} />
