@@ -8,7 +8,7 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import fibre_optique from '../assets/fibre_optique_slide.png';
 import installation_electrique from '../assets/installation_electrique_slide.png';
@@ -16,10 +16,15 @@ import maintenance from '../assets/maintenance_slide.png';
 import mise_aux_normes from '../assets/mise_aux_normes_slide.png';
 import Carousel from 'react-native-reanimated-carousel';
 import Svg, {Circle} from 'react-native-svg';
+import {SvgUri} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import ModalServices from '../components/ModalServices';
 import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {setBookings} from '../reduxConf/bookingSlice';
 import axios from 'axios';
+import userImg from '../assets/users.webp';
+import playersImg from '../assets/players.svg';
 
 const data = [
   {
@@ -47,19 +52,36 @@ const data = [
 const Accuil = () => {
   const user = useSelector(state => state.user);
   const booking = useSelector(state => state.booking);
+  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const navigation = useNavigation();
   const [bookingInfo, setBookingInfo] = useState({});
-  const [bookingTemp, setBookingTemp] = useState();
-
+  const [deleteId, setDeleteId] = useState();
   const isEmptyObject = obj => Object.keys(obj).length === 0;
 
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
+  const bookingWidth = useMemo(() => width * 0.8, [width]);
+  const bookingHeight = useMemo(() => height * 0.3, [height]);
+  const bookingBtnWidth = useMemo(() => width * 0.35, [width]);
+  const carouselWidth = useMemo(() => width * 0.7, [width]);
 
   handlePress = () => {
     setModalVisible(true);
+  };
+
+  handleAnnuler = async id => {
+    try {
+      const res = await axios.delete(
+        `http://10.0.2.2:3000/api/deleteBooking/${id}`,
+      );
+      if (res.status === 200) {
+        setDeleteId(res.data.id);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -79,9 +101,82 @@ const Accuil = () => {
     };
 
     fetchBookings();
-  }, [booking]);
+  }, [booking, deleteId]);
 
-  console.log(booking);
+  const renderItem = useCallback(
+    ({item}) => (
+      <View
+        style={{width: bookingWidth, height: bookingHeight}}
+        className=" mx-5 h-[230px] rounded-xl border-[0.5px] overflow-hidden">
+        <View className="flex-1">
+          <View className=" bg-primary  w-[100%] flex-row items-center flex-[2]">
+            <Ionicons
+              name="calendar-outline"
+              size={20}
+              color="white"
+              style={{marginLeft: 8}}
+            />
+            <Text className=" text-txt ml-2">
+              {item.prochaine_disponibilite}
+            </Text>
+          </View>
+          <View className="flex-[8] p-3">
+            <View className="flex-row items-center flex-auto ">
+              <Image
+                source={{uri: item.logo}}
+                style={{
+                  resizeMode: 'cover',
+                  width: 42,
+                  height: 42,
+                  borderRadius: 50,
+                  borderWidth: 0.5,
+                  borderColor: 'black',
+                }}
+                cache="only-if-cached"
+              />
+              <Text className="text-text2 font-bold ml-3">
+                {item.denomination}
+              </Text>
+            </View>
+            <View className="flex-auto justify-center">
+              <View className="flex-row mt-4 ml-2 mr-2">
+                <Ionicons name="build-outline" size={20} color="black" />
+
+                <Text className="mx-2 text-text2 leading-4" numberOfLines={1}>
+                  {item.activites}
+                </Text>
+              </View>
+              <View className="flex-row my-3 ml-2 items-center">
+                <Ionicons name="pin-sharp" size={20} color="black" />
+
+                <Text className="mx-2 text-text2 leading-4" numberOfLines={1}>
+                  {item.location} {', '}
+                  {item.ville}
+                </Text>
+              </View>
+            </View>
+            <View className=" flex-row justify-between  flex-auto items-end ">
+              <Pressable>
+                <View
+                  style={{width: bookingBtnWidth}}
+                  className="bg-btnColor py-3 justify-center items-center rounded-lg">
+                  <Text className="font-bold text-text2">Modifier RDV</Text>
+                </View>
+              </Pressable>
+              <Pressable onPress={() => handleAnnuler(item.id)}>
+                <View
+                  style={{width: bookingBtnWidth}}
+                  className="bg-[#e11d48] p-3 justify-center items-center rounded-lg ">
+                  <Text className="font-bold text-txt">Annuler RDV</Text>
+                </View>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </View>
+    ),
+    [bookingWidth, bookingHeight, bookingBtnWidth, width],
+  );
 
   return (
     <ScrollView
@@ -164,7 +259,7 @@ const Accuil = () => {
                   source={item.img}
                   resizeMode="cover"
                   style={{
-                    width: width * 0.7,
+                    width: carouselWidth,
                     height: 150,
                     borderRadius: 15,
                   }}
@@ -196,102 +291,61 @@ const Accuil = () => {
           Mes travaux à venir
         </Text>
       </View>
-      {isEmptyObject(bookingInfo) ? (
-        <View className="justify-center items-center my-10">
+      {bookingInfo.length === 0 ? (
+        <View className="justify-center items-center mt-10 mb-14">
           <Text className="text-gray-500">Pas de travaux planifiés </Text>
         </View>
       ) : (
-        <View className="my-8">
+        <View className="my-8 justify-center items-center">
           <FlatList
             data={bookingInfo}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <View
-                style={{width: width * 0.8, height: height * 0.3}}
-                className=" mx-5 h-[230px] rounded-xl border-[0.5px] overflow-hidden">
-                <View className="flex-1">
-                  <View className=" bg-primary  w-[100%] flex-row items-center flex-[2]">
-                    <Ionicons
-                      name="calendar-outline"
-                      size={20}
-                      color="white"
-                      style={{marginLeft: 8}}
-                    />
-                    <Text className=" text-txt ml-2">
-                      {item.prochaine_disponibilite}
-                    </Text>
-                  </View>
-                  <View className="flex-[8] p-3">
-                    <View className="flex-row items-center flex-auto ">
-                      <Image
-                        source={{uri: item.logo}}
-                        style={{
-                          resizeMode: 'cover',
-                          width: 42,
-                          height: 42,
-                          borderRadius: 50,
-                          borderWidth: 0.5,
-                          borderColor: 'black',
-                        }}
-                      />
-                      <Text className="text-text2 font-bold ml-3">
-                        {item.denomination}
-                      </Text>
-                    </View>
-                    <View className="flex-auto justify-center">
-                      <View className="flex-row mt-4 ml-2 mr-2">
-                        <Ionicons
-                          name="build-outline"
-                          size={20}
-                          color="black"
-                        />
-
-                        <Text
-                          className="mx-2 text-text2 leading-4"
-                          numberOfLines={1}>
-                          {item.activites}
-                        </Text>
-                      </View>
-                      <View className="flex-row my-3 ml-2 items-center">
-                        <Ionicons name="pin-sharp" size={20} color="black" />
-
-                        <Text
-                          className="mx-2 text-text2 leading-4"
-                          numberOfLines={1}>
-                          {item.location} {', '}
-                          {item.ville}
-                        </Text>
-                      </View>
-                    </View>
-                    <View className=" flex-row justify-between  flex-auto items-end ">
-                      <Pressable>
-                        <View
-                          style={{width: width * 0.35}}
-                          className="bg-btnColor py-3 justify-center items-center rounded-lg">
-                          <Text className="font-bold text-text2">
-                            Changer RDV
-                          </Text>
-                        </View>
-                      </Pressable>
-                      <Pressable>
-                        <View
-                          style={{width: width * 0.35}}
-                          className="bg-[#e11d48] p-3 justify-center items-center rounded-lg">
-                          <Text className="font-bold text-txt">
-                            Annuler RDV
-                          </Text>
-                        </View>
-                      </Pressable>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            )}
+            // initialNumToRender={1}
+            // windowSize={1}
+            // maxToRenderPerBatch={2}
+            updateCellsBatchingPeriod={50}
+            renderItem={renderItem}
             keyExtractor={item => item.id}
           />
         </View>
       )}
+      <View className="bg-primary mx-8 rounded-2xl p-4 my-5">
+        <View className="items-center">
+          <Text className="text-txt text-[20px] font-bold">
+            Pensée pour les{' '}
+            <Text className="text-btnColor text-[20px] font-bold">pros</Text>,
+            créée pour vous !
+          </Text>
+        </View>
+        <View className=" mt-10 mx-5">
+          <Text className="text-[16px] leading-8 text-txt text-justify">
+            Passez à{' '}
+            <Text className="text-btnColor font-bold">OptiElecPro</Text>,
+            l’application dédiée aux professionnels. Planifiez, suivez et
+            finalisez vos travaux en toute simplicité, où que vous soyez.
+          </Text>
+        </View>
+      </View>
+      <View className="mt-8 mb-10">
+        <View className=" items-center">
+          <Text className="text-text2 text-[20px] font-bold">
+            Pourquoi choisir <Text className="text-primary">OptiElecPro</Text> ?
+          </Text>
+        </View>
+        <View className="justify-center items-center mt-6 opacity-70">
+          <Image source={userImg} className="h-[237px] w-80" />
+        </View>
+
+        <View className=" mt-8 mx-10">
+          <Text className="text-[16px] leading-8 text-text2 text-justify">
+            <Text className="text-primary font-bold">OptiElecPro</Text>,
+            simplifie la gestion de vos projets de fibre optique. Organisez vos
+            interventions facilement, suivez les travaux en temps réel et gagnez
+            en efficacité. Un outil puissant pour les professionnel.
+          </Text>
+        </View>
+      </View>
     </ScrollView>
   );
 };

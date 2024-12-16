@@ -9,7 +9,6 @@ import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {removeBookings} from '../reduxConf/bookingSlice';
-import {setBookings} from '../reduxConf/bookingSlice';
 
 const CompanySearchScreen = () => {
   const booking = useSelector(state => state.booking);
@@ -52,6 +51,7 @@ const CompanySearchScreen = () => {
       );
       if (res.status === 200) {
         dispatch(removeBookings());
+
         navigation.navigate('Accuil');
       }
     } catch (error) {
