@@ -16,6 +16,7 @@ router.get('/services', ServicesControllers.getServicesController);
 router.get('/villes', ServicesControllers.getCity);
 router.get('/companies', CompaniesControllers.getCompaniesController);
 router.post('/booking/activites', bookingControllers.setBookingControllers);
+router.post('/chat/sender', chatControllers.setChatController);
 router.delete(
   '/deleteBooking/:id',
   bookingControllers.deleteBookingtempControllers,
@@ -27,6 +28,7 @@ router.put(
 );
 router.get('/activites/:id', ServicesControllers.getTypesIntervention);
 router.get('/chat/:id1/:id2', chatControllers.getChatController);
+
 router.get('/users', userController.getAllUsers); // il faut mettre le chemin racine en dernier
 
 module.exports = router;

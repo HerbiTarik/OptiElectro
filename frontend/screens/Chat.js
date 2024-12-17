@@ -1,4 +1,12 @@
-import {View, Text, TextInput, Image, Dimensions, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  Dimensions,
+  FlatList,
+  Pressable,
+} from 'react-native';
 import React, {useEffect, useMemo, useState, useCallback} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import photo from '../assets/photo.jpg';
@@ -12,6 +20,7 @@ const Chat = () => {
   const {width} = Dimensions.get('window');
   const widthMsg = useMemo(() => width * 0.83, [width]);
   const [data, setData] = useState();
+  const [chatDataSender, setChatDataSender] = useState();
 
   useEffect(() => {
     const fetchChat = async () => {
@@ -28,17 +37,39 @@ const Chat = () => {
     fetchChat();
   }, []);
 
-  console.log(data);
-  console.log(company.id);
-  console.log(user.id);
+  const handleSend = async () => {
+    dataSender = {
+      id_user: user.id,
+      id_ent: company.id,
+      content_sender: msg,
+    };
+    if (msg) {
+      try {
+        const response = await axios.post(
+          'http://10.0.2.2:3000/api/chat/sender',
+          dataSender,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        setChatDataSender(response.data);
+        setMsg('');
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   const renderItem = useCallback(({item}) => {
     const flexDirection = item.id_contact === user.id ? 'row-reverse' : 'row';
+    const img = item.id_contact === user.id ? photo : {uri: item.logo};
     return (
       <View className="flex-col-reverse my-3">
         <View style={{flexDirection: flexDirection}}>
           <Image
-            source={photo}
+            source={img}
             style={{
               resizeMode: 'cover',
               width: 30,
@@ -82,8 +113,10 @@ const Chat = () => {
             placeholderTextColor={'gray'}
           />
         </View>
-        <View className="flex-[1] mr-3 justify-center items-center">
-          <Ionicons name="send" size={24} color="#0284c7" />
+        <View className="flex-[1] mr-3 justify-center items-center ">
+          <Pressable onPress={handleSend}>
+            <Ionicons name="send" size={24} color="#0284c7" />
+          </Pressable>
         </View>
       </View>
     </View>

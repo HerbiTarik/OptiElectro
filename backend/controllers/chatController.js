@@ -11,6 +11,16 @@ const chatControllers = {
       res.status(500).json({error: error.message});
     }
   },
+  setChatController: async (req, res) => {
+    const {id_user, id_ent, content_sender} = req.body;
+    try {
+      const response = await chat.setChat(id_user, id_ent, content_sender);
+      res.status(200).json(response);
+    } catch (error) {
+      console.log(error);
+      res.status(200).json({error: error.message});
+    }
+  },
 };
 
 module.exports = chatControllers;
