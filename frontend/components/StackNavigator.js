@@ -12,6 +12,7 @@ import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {removeBookings} from '../reduxConf/bookingSlice';
+import Chat from '../screens/Chat';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,9 @@ const StackNavigator = () => {
     }
   };
 
+  const backhundlerChat = () => {
+    navigation.goBack();
+  };
   return (
     <Stack.Navigator
       screenOptions={{
@@ -56,6 +60,26 @@ const StackNavigator = () => {
           ),
           headerShown: true,
           headerTitle: 'Liste des entreprises',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#0284c7',
+          },
+          headerTintColor: '#fffbeb',
+        }}
+      />
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          headerLeft: () => (
+            <Pressable
+              className="justify-center items-center"
+              onPress={backhundlerChat}>
+              <Ionicons name="chevron-back" size={24} color="white" />
+            </Pressable>
+          ),
+          headerShown: true,
+          headerTitle: 'Messages',
           headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: '#0284c7',

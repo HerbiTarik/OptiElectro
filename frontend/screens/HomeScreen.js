@@ -56,7 +56,17 @@ const HomeScreen = () => {
         }}
       />
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Message" component={Message} />
+      <Tab.Screen
+        name="Message"
+        component={Message}
+        options={{
+          headerShown: true,
+          title: 'Messages',
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: '#0284c7'},
+          headerTitleAlign: 'center',
+        }}
+      />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );

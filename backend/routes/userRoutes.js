@@ -4,6 +4,7 @@ const userController = require('../controllers/userControllers');
 const ServicesControllers = require('../controllers/servicesControllers');
 const CompaniesControllers = require('../controllers/companyController');
 const bookingControllers = require('../controllers/bookingController');
+const chatControllers = require('../controllers/chatController');
 
 router.get('/users/id/:id', userController.getUserById);
 router.get('/users/email/:email', userController.getUserByEmail);
@@ -25,7 +26,7 @@ router.put(
   bookingControllers.addBookingCompanyControllers,
 );
 router.get('/activites/:id', ServicesControllers.getTypesIntervention);
-
+router.get('/chat/:id1/:id2', chatControllers.getChatController);
 router.get('/users', userController.getAllUsers); // il faut mettre le chemin racine en dernier
 
 module.exports = router;
