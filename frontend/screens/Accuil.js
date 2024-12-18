@@ -16,15 +16,12 @@ import maintenance from '../assets/maintenance_slide.png';
 import mise_aux_normes from '../assets/mise_aux_normes_slide.png';
 import Carousel from 'react-native-reanimated-carousel';
 import Svg, {Circle} from 'react-native-svg';
-import {SvgUri} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import ModalServices from '../components/ModalServices';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
-import {setBookings} from '../reduxConf/bookingSlice';
 import axios from 'axios';
 import userImg from '../assets/users.webp';
-import playersImg from '../assets/players.svg';
 
 const data = [
   {
@@ -106,7 +103,10 @@ const Accuil = () => {
   const renderItem = useCallback(
     ({item}) => (
       <View
-        style={{width: bookingWidth, height: bookingHeight}}
+        style={{
+          width: bookingWidth,
+          height: bookingHeight,
+        }}
         className=" mx-5 h-[230px] rounded-xl border-[0.5px] overflow-hidden">
         <View className="flex-1">
           <View className=" bg-primary  w-[100%] flex-row items-center flex-[2]">
@@ -246,8 +246,6 @@ const Accuil = () => {
             <View className="items-center justify-center">
               <View
                 style={{
-                  // width: width * 0.7,
-                  // height: 150,
                   borderRadius: 15,
                   shadowColor: '#000',
                   shadowOffset: {width: 0, height: 4},
@@ -310,7 +308,11 @@ const Accuil = () => {
           />
         </View>
       )}
-      <View className="bg-primary mx-8 rounded-2xl p-4 my-5">
+      <View
+        className="bg-primary mx-8 rounded-2xl p-4 my-5"
+        style={{
+          elevation: 5,
+        }}>
         <View className="items-center">
           <Text className="text-txt text-[20px] font-bold">
             Pensée pour les{' '}

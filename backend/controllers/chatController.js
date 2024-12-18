@@ -21,6 +21,16 @@ const chatControllers = {
       res.status(200).json({error: error.message});
     }
   },
+  getCompanyNameController: async (req, res) => {
+    const {id} = req.params;
+    try {
+      const response = await chat.getCompanyName(id);
+      res.status(200).json(response);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({error: error.message});
+    }
+  },
 };
 
 module.exports = chatControllers;

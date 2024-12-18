@@ -17,6 +17,7 @@ router.get('/villes', ServicesControllers.getCity);
 router.get('/companies', CompaniesControllers.getCompaniesController);
 router.post('/booking/activites', bookingControllers.setBookingControllers);
 router.post('/chat/sender', chatControllers.setChatController);
+router.get('/companyName/:id', chatControllers.getCompanyNameController);
 router.delete(
   '/deleteBooking/:id',
   bookingControllers.deleteBookingtempControllers,

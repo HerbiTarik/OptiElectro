@@ -16,7 +16,7 @@ const chat = {
   END AS contact
 FROM messages inner join entreprise on entreprise.id = messages.id_ent  
 WHERE messages.id_user = $1 AND messages.id_ent = $2
-ORDER BY temps ASC;
+ORDER BY temps DESC;
 `,
       [id1, id2],
     );
@@ -28,6 +28,13 @@ ORDER BY temps ASC;
       [id_user, id_ent, content_sender],
     );
     return res.rows;
+  },
+  getCompanyName: async id => {
+    const res = await pool.query(
+      `select entreprise.denomination from entreprise where id = $1`,
+      [id],
+    );
+    return res.rows[0];
   },
 };
 

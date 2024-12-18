@@ -9,6 +9,8 @@ import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {removeBookings} from '../reduxConf/bookingSlice';
+import dayjs from 'dayjs';
+import '../dayjs/fr';
 
 const CompanySearchScreen = () => {
   const booking = useSelector(state => state.booking);
@@ -17,6 +19,10 @@ const CompanySearchScreen = () => {
 
   const [rating, setRating] = useState();
   const [data, setData] = useState();
+  dayjs.locale('fr');
+  const dateCourante = dayjs();
+  const dateActuelle = dateCourante.format('DD MMMM YYYY');
+  console.log(dateActuelle);
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -130,8 +136,8 @@ const CompanySearchScreen = () => {
                 <Text className="text-txt font-bold mb-2">
                   Prochaine disponibilté
                 </Text>
-                <Text className="text-btnColor ">
-                  {' '}
+
+                <Text className="text-btnColor">
                   {item.prochaine_disponibilite}
                 </Text>
               </View>

@@ -21,6 +21,21 @@ const Chat = () => {
   const widthMsg = useMemo(() => width * 0.83, [width]);
   const [data, setData] = useState();
   const [chatDataSender, setChatDataSender] = useState();
+  const [companyName, setCompanyName] = useState();
+
+  useEffect(() => {
+    const fetchCompanyName = async () => {
+      try {
+        const response = await axios.get(
+          `http://10.0.2.2:3000/api/companyName/${company.id}`,
+        );
+        setCompanyName(response.data.denomination);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchCompanyName();
+  }, []);
 
   useEffect(() => {
     const fetchChat = async () => {
@@ -35,15 +50,15 @@ const Chat = () => {
       }
     };
     fetchChat();
-  }, []);
+  }, [chatDataSender]);
 
   const handleSend = async () => {
     dataSender = {
       id_user: user.id,
       id_ent: company.id,
-      content_sender: msg,
+      content_sender: msg.trim(),
     };
-    if (msg) {
+    if (msg && msg.trim()) {
       try {
         const response = await axios.post(
           'http://10.0.2.2:3000/api/chat/sender',
@@ -66,7 +81,7 @@ const Chat = () => {
     const flexDirection = item.id_contact === user.id ? 'row-reverse' : 'row';
     const img = item.id_contact === user.id ? photo : {uri: item.logo};
     return (
-      <View className="flex-col-reverse my-3">
+      <View className="flex-col my-3 ">
         <View style={{flexDirection: flexDirection}}>
           <Image
             source={img}
@@ -92,7 +107,12 @@ const Chat = () => {
 
   return (
     <View className="flex-1">
-      <View className="flex-[9] mx-2 mb-5">
+      <View
+        className="flex-[0.8] bg-white items-center justify-center"
+        style={{elevation: 5}}>
+        <Text className="text-text2 text-[18px]">{companyName}</Text>
+      </View>
+      <View className="flex-[9.2] mx-2">
         <FlatList
           style={{flex: 1}}
           data={data}
