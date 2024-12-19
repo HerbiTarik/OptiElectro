@@ -22,6 +22,7 @@ import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import axios from 'axios';
 import userImg from '../assets/users.webp';
+import {setAnnuler, removeAnnuler} from '../reduxConf/deleteIdSlice';
 
 const data = [
   {
@@ -49,6 +50,8 @@ const data = [
 const Accuil = () => {
   const user = useSelector(state => state.user);
   const booking = useSelector(state => state.booking);
+  const annuler = useSelector(state => state.annuler);
+
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
@@ -73,9 +76,8 @@ const Accuil = () => {
       const res = await axios.delete(
         `http://10.0.2.2:3000/api/deleteBooking/${id}`,
       );
-      if (res.status === 200) {
-        setDeleteId(res.data.id);
-      }
+
+      dispatch(setAnnuler({id}));
     } catch (error) {
       console.error(error);
     }
@@ -98,7 +100,7 @@ const Accuil = () => {
     };
 
     fetchBookings();
-  }, [booking, deleteId]);
+  }, [booking, annuler]);
 
   const renderItem = useCallback(
     ({item}) => (

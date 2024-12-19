@@ -11,6 +11,8 @@ import {useDispatch} from 'react-redux';
 import {removeBookings} from '../reduxConf/bookingSlice';
 import dayjs from 'dayjs';
 import '../dayjs/fr';
+import moment from 'moment';
+import {parse, isBefore} from 'date-fns'; // Import des fonctions de date-fns
 
 const CompanySearchScreen = () => {
   const booking = useSelector(state => state.booking);
@@ -22,7 +24,6 @@ const CompanySearchScreen = () => {
   dayjs.locale('fr');
   const dateCourante = dayjs();
   const dateActuelle = dateCourante.format('DD MMMM YYYY');
-  console.log(dateActuelle);
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -70,92 +71,108 @@ const CompanySearchScreen = () => {
       <FlatList
         data={data}
         keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <View className="bg-white mx-3 my-5 rounded-[10px] shadow-md shadow-[black] p-3">
-            <View className="flex-row">
-              <Image
-                source={{uri: item.logo}}
-                style={{
-                  resizeMode: 'cover',
-                  width: 70,
-                  height: 70,
-                  borderRadius: 50,
-                  borderWidth: 0.5,
-                  borderColor: 'black',
-                }}
-              />
-              <View className="flex-auto justify-around pl-5">
-                <Text className="font-bold text-[22px] text-text2">
-                  {item.denomination}
-                </Text>
+        renderItem={({item}) => {
+          const prochaineDisponibilite = parse(
+            item.prochaine_disponibilite,
+            'dd MMMM yyyy',
+            new Date(),
+          );
 
-                <StarRating
-                  rating={item.stars}
-                  onChange={setRating}
-                  maxStars={5}
-                  starSize={20}
-                  enableHalfStar
-                  color="#facc15"
-                  starStyle={{
-                    marginHorizontal: 2,
+          console.log(prochaineDisponibilite);
+          // Comparaison des dates
+          const isAvailable = !isBefore(
+            prochaineDisponibilite,
+            dateCourante.toDate(),
+          );
+          return (
+            <View className="bg-white mx-3 my-5 rounded-[10px] shadow-md shadow-[black] p-3">
+              <View className="flex-row">
+                <Image
+                  source={{uri: item.logo}}
+                  style={{
+                    resizeMode: 'cover',
+                    width: 70,
+                    height: 70,
+                    borderRadius: 50,
+                    borderWidth: 0.5,
+                    borderColor: 'black',
                   }}
                 />
-              </View>
-            </View>
-            <View>
-              <Text className="font-bold text-text2 text-[15px] my-5">
-                {item.activite_principale}
-              </Text>
-              <View className="flex-row items-center mb-2 ">
-                <Ionicons name="pin-sharp" size={16} color="#0f172a" />
-                <Text className="text-text2  pl-2">
-                  Disponble à {item.city}
-                </Text>
-              </View>
-              <View className="flex-row items-center my-2 ">
-                <Ionicons name="hourglass-outline" size={16} color="#0f172a" />
-                <Text className=" text-text2 pl-2">
-                  <Text className="font-bold">Intervention moyenne </Text>:{' '}
-                  {item.duree_intervention} jours
-                </Text>
-              </View>
-              <View className="flex-row items-center my-2 ">
-                <Ionicons name="cash-outline" size={16} color="#0f172a" />
-                <Text className=" text-text2 pl-2">
-                  <Text className="font-bold ">Tarifs</Text> : {item.tarif_min}{' '}
-                  - {item.tarif_max} €
-                </Text>
-              </View>
-              <View className="flex-row items-center my-2 ">
-                <MaterialIcons name="done" size={16} color="#0f172a" />
-                <Text className="text-text2 pl-2">
-                  Certifié {item.certification} / Partenaire {item.partenaire}
-                </Text>
-              </View>
-              <View className="bg-primary py-5 rounded-[10px] justify-center items-center mt-3">
-                <Text className="text-txt font-bold mb-2">
-                  Prochaine disponibilté
-                </Text>
+                <View className="flex-auto justify-around pl-5">
+                  <Text className="font-bold text-[22px] text-text2">
+                    {item.denomination}
+                  </Text>
 
-                <Text className="text-btnColor">
-                  {item.prochaine_disponibilite}
-                </Text>
+                  <StarRating
+                    rating={item.stars}
+                    onChange={setRating}
+                    maxStars={5}
+                    starSize={20}
+                    enableHalfStar
+                    color="#facc15"
+                    starStyle={{
+                      marginHorizontal: 2,
+                    }}
+                  />
+                </View>
               </View>
-            </View>
-            <View className="flex-row justify-between mt-4">
-              <View className="bg-btnColor p-3 rounded-lg">
-                <Pressable>
-                  <Text className="text-text2">En savoir plus</Text>
+              <View>
+                <Text className="font-bold text-text2 text-[15px] my-5">
+                  {item.activite_principale}
+                </Text>
+                <View className="flex-row items-center mb-2 ">
+                  <Ionicons name="pin-sharp" size={16} color="#0f172a" />
+                  <Text className="text-text2  pl-2">
+                    Disponble à {item.city}
+                  </Text>
+                </View>
+                <View className="flex-row items-center my-2 ">
+                  <Ionicons
+                    name="hourglass-outline"
+                    size={16}
+                    color="#0f172a"
+                  />
+                  <Text className=" text-text2 pl-2">
+                    <Text className="font-bold">Intervention moyenne </Text>:{' '}
+                    {item.duree_intervention} jours
+                  </Text>
+                </View>
+                <View className="flex-row items-center my-2 ">
+                  <Ionicons name="cash-outline" size={16} color="#0f172a" />
+                  <Text className=" text-text2 pl-2">
+                    <Text className="font-bold ">Tarifs</Text> :{' '}
+                    {item.tarif_min} - {item.tarif_max} €
+                  </Text>
+                </View>
+                <View className="flex-row items-center my-2 ">
+                  <MaterialIcons name="done" size={16} color="#0f172a" />
+                  <Text className="text-text2 pl-2">
+                    Certifié {item.certification} / Partenaire {item.partenaire}
+                  </Text>
+                </View>
+                <View className="bg-primary py-5 rounded-[10px] justify-center items-center mt-3">
+                  <Text className="text-txt font-bold mb-2">
+                    Prochaine disponibilté
+                  </Text>
+
+                  <Text className="text-btnColor">{item.disponibilite}</Text>
+                </View>
+              </View>
+              <View className="flex-row justify-between mt-4">
+                <View className="bg-btnColor p-3 rounded-lg">
+                  <Pressable>
+                    <Text className="text-text2">En savoir plus</Text>
+                  </Pressable>
+                </View>
+                <Pressable onPress={() => bookingHandle(item.id)}>
+                  <View className="bg-btnColor p-3 rounded-lg">
+                    <Text className="text-text2">Prendre rendez-vous</Text>
+                  </View>
                 </Pressable>
               </View>
-              <Pressable onPress={() => bookingHandle(item.id)}>
-                <View className="bg-btnColor p-3 rounded-lg">
-                  <Text className="text-text2">Prendre rendez-vous</Text>
-                </View>
-              </Pressable>
             </View>
-          </View>
-        )}
+          );
+        }}
       />
     </View>
   );

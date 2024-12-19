@@ -53,6 +53,16 @@ const bookingControllers = {
       res.status(500).json({error: error.message});
     }
   },
+  fetchPastBookingReservation: async (req, res) => {
+    const {id} = req.params;
+    try {
+      const response = await booking.getPastReservation(id);
+      res.status(200).json(response);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({error: error.message});
+    }
+  },
 };
 
 module.exports = bookingControllers;

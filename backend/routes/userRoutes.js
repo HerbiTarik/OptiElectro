@@ -23,6 +23,10 @@ router.delete(
   bookingControllers.deleteBookingtempControllers,
 );
 router.get('/myBookings/:id', bookingControllers.fetchBookingReservation);
+router.get(
+  '/myPastBookings/:id',
+  bookingControllers.fetchPastBookingReservation,
+);
 router.put(
   '/bookingCompany/:id',
   bookingControllers.addBookingCompanyControllers,
