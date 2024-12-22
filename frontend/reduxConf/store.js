@@ -3,6 +3,7 @@ import userReducer from './userSlice';
 import bookingReducer from './bookingSlice';
 import companyReducer from './companySlice';
 import annulerReducer from './deleteIdSlice';
+import imgReducer from './imgSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     booking: bookingReducer,
     company: companyReducer,
     annuler: annulerReducer,
+    img: imgReducer,
   },
 });
 

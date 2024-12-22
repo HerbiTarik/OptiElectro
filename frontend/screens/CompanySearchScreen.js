@@ -78,7 +78,6 @@ const CompanySearchScreen = () => {
             new Date(),
           );
 
-          console.log(prochaineDisponibilite);
           // Comparaison des dates
           const isAvailable = !isBefore(
             prochaineDisponibilite,

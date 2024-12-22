@@ -14,6 +14,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 
 const Chat = () => {
+  const picture = useSelector(state => state.img);
   const company = useSelector(state => state.company);
   const user = useSelector(state => state.user);
   const [msg, setMsg] = useState('');
@@ -79,7 +80,12 @@ const Chat = () => {
 
   const renderItem = useCallback(({item}) => {
     const flexDirection = item.id_contact === user.id ? 'row-reverse' : 'row';
-    const img = item.id_contact === user.id ? photo : {uri: item.logo};
+    const img =
+      item.id_contact === user.id
+        ? picture
+          ? picture
+          : photo
+        : {uri: item.logo};
     return (
       <View className="flex-col my-3 ">
         <View style={{flexDirection: flexDirection}}>

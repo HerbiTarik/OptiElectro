@@ -36,6 +36,7 @@
     "react-native-gesture-handler": "^2.20.2",
     "react-native-get-random-values": "^1.11.0",
     "react-native-google-places-autocomplete": "^2.5.7",
+    "react-native-image-picker": "^7.2.3",
     "react-native-keyboard-controller": "^1.12.7",
     "react-native-lorem-ipsum": "^0.1.0",
     "react-native-pager-view": "^6.6.1",

@@ -19,7 +19,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
-import RNFS from 'react-native-fs';
+import RNFS, {stat} from 'react-native-fs';
 import {Buffer} from 'buffer';
 import Icon from 'react-native-vector-icons/Fontisto';
 import Btn from '../components/Btn';
@@ -29,8 +29,11 @@ import {validate} from 'validate.js';
 import Svg, {Rect} from 'react-native-svg';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../reduxConf/userSlice';
+import {setImage} from '../reduxConf/imgSlice';
+import {useSelector} from 'react-redux';
 
 const Profile = () => {
+  const picture = useSelector(state => state.img);
   const dispatch = useDispatch();
   const {width} = Dimensions.get('window');
   const {height} = Dimensions.get('window');
@@ -49,6 +52,7 @@ const Profile = () => {
   const [tokenDecode, setTokenDecode] = useState(null);
   const [dataForDispatch, setDataForDispatch] = useState({});
   const [dataUpdatedForDispatch, setDataUpdatedForDispatch] = useState({});
+  const [img, setImg] = useState(null);
 
   // const {userData} = RecupDataUser();
 
@@ -169,34 +173,56 @@ const Profile = () => {
   //   }
   // };
 
+  // const pickImage = async () => {
+  // let option = {
+  //   mediaType: 'photo',
+  //   quality: 1,
+  // };
+  // const result = await launchImageLibrary(option);
+  // if (result.didCancel) {
+  //   console.log('User cancelled image picker');
+  // } else if (result.errorMessage) {
+  //   console.log('ImagePicker Error: ', result.errorMessage);
+  // } else {
+  //   if (result.assets && result.assets.length > 0) {
+  //     // Utilise l'URI correcte
+  //     const selectedImageUri = result.assets[0].uri;
+  //     try {
+  //       // const base64Image = await RNFS.readFile(selectedImageUri, 'base64');
+  //       setImageUri(selectedImageUri); // Enregistre l'URI de l'image sélectionnée
+  //     } catch (error) {
+  //       console.log(
+  //         'Erreur lors de la conversion de l’image en base64:',
+  //         error,
+  //       );
+  //     }
+  //   } else {
+  //     console.error('Aucune image sélectionnée');
+  //   }
+  // }
+  // };
+
   const pickImage = async () => {
-    // let option = {
-    //   mediaType: 'photo',
-    //   quality: 1,
-    // };
-    // const result = await launchImageLibrary(option);
-    // if (result.didCancel) {
-    //   console.log('User cancelled image picker');
-    // } else if (result.errorMessage) {
-    //   console.log('ImagePicker Error: ', result.errorMessage);
-    // } else {
-    //   if (result.assets && result.assets.length > 0) {
-    //     // Utilise l'URI correcte
-    //     const selectedImageUri = result.assets[0].uri;
-    //     try {
-    //       // const base64Image = await RNFS.readFile(selectedImageUri, 'base64');
-    //       setImageUri(selectedImageUri); // Enregistre l'URI de l'image sélectionnée
-    //     } catch (error) {
-    //       console.log(
-    //         'Erreur lors de la conversion de l’image en base64:',
-    //         error,
-    //       );
-    //     }
-    //   } else {
-    //     console.error('Aucune image sélectionnée');
-    //   }
-    // }
+    const options = {
+      mediaType: 'photo',
+      quality: 1,
+    };
+
+    try {
+      const result = await launchImageLibrary(options);
+
+      if (result.assets && result.assets.length > 0) {
+        setImg({uri: result.assets[0].uri});
+        if (img) {
+          dispatch(setImage(img));
+        }
+      }
+    } catch (error) {
+      console.log('Error picking image:', error);
+    }
   };
+
+  console.log('slie', picture);
 
   useEffect(() => {
     if (imageUri) {
@@ -247,7 +273,7 @@ const Profile = () => {
           </View>
           <View className="justify-center items-center mt-20 p-3">
             <Image
-              source={photo}
+              source={img ? img : photo}
               className="w-36 h-36 flex-auto rounded-full"
             />
 
